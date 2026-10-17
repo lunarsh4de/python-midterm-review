@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Course Knowledge Supplement</title>
+<link rel="stylesheet" href="review.css">
+<link rel="stylesheet" href="visual.css">
+</head>
+<body data-page="supplement">
+<header><div class="wrap">
+<div class="eyebrow">Source-audited supplement · 11 Markdown files</div>
+<h1>课程知识补充<br><span class="subtitle">Definitions, corrections, and worked examples</span></h1>
+<p>根据课程目录中的全部 Markdown 重新核对。这里集中补充容易藏在 PPT 图片、案例页和实现截图里的知识。</p>
+<div class="chips"><span class="chip">worked examples</span><span class="chip">slide corrections</span><span class="chip">formulae</span><span class="chip">exam English</span></div>
+</div></header>
+<nav class="topnav"><div class="wrap">
+<a href="python_midterm_review.html">总览</a><a href="week1.html">Week 1</a><a href="week2.html">Week 2</a><a href="week3.html">Week 3</a><a href="week4.html">Week 4</a><a href="week5.html">Week 5</a><a href="week6.html">Week 6</a><a href="assignment2.html">Assignment 2</a><a href="course_cases.html">案例与规划</a><a class="active" href="knowledge_supplement.html">知识补充</a><a href="visual_supplements.html">图片补充</a>
+</div></nav>
+<main>
+<p class="breadcrumbs"><a href="python_midterm_review.html">Home</a> / Knowledge supplement</p>
+
+<section class="summary"><div class="summary-main">
+<h2>补充原则 / Scope</h2>
+<p>补充内容来自 10 份课程课件和 1 份考试说明。正文 OCR、图片附近文字和图示案例一起核对。课件中的拼写、旧 API 或代码错误会同时标出“原材料写法”和“现代 Python/库的正确写法”。</p>
+<p class="en"><b>This page preserves the course concept while correcting obsolete or invalid code where necessary.</b></p>
+</div><aside class="summary-side">
+<h2>怎样复习 / How to study</h2>
+<p>先读对应 Week 页面，再看这里的 worked example。遮住计算步骤，自己完成一遍，然后用英文模板解释。</p>
+</aside></section>
+
+<section><h2>Week 1 补充：程序、容器与控制流</h2>
+<h3>编译流程 / Compilation pipeline</h3>
+<div class="flow"><div class="step"><b>Source program</b><br>程序员写的高级语言代码</div><div class="arrow">→</div><div class="step"><b>Compiler</b><br>整体翻译</div><div class="arrow">→</div><div class="step"><b>Object program</b><br>机器语言形式</div><div class="arrow">→</div><div class="step"><b>Linker</b><br>连接模块与库</div><div class="arrow">→</div><div class="step"><b>Executable</b><br>可运行文件</div></div>
+<p>CPU 执行循环：fetch instruction → decode → retrieve data if needed → execute → store result if needed。编程过程包括 problem identification and solving、implementation、maintenance。</p>
+<div class="table-wrap"><table class="table"><thead><tr><th>Python distinction</th><th>Example</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>sort</code> vs <code>sorted</code></td><td><code>a.sort()</code> / <code>b=sorted(a)</code></td><td><code>sort</code> 修改原 list；<code>sorted</code> 返回新 list。</td></tr>
+<tr><td><code>append</code> vs <code>extend</code></td><td><code>a.append([3,4])</code> / <code>a.extend([3,4])</code></td><td>前者添加一个 list 对象；后者添加其中两个元素。</td></tr>
+<tr><td><code>break</code> vs <code>continue</code></td><td>终止循环 / 跳过本轮</td><td>两者只用于循环体。</td></tr>
+<tr><td>positional vs named argument</td><td><code>f(2,b=3)</code></td><td>命名参数可改变次序，但位于位置参数之后。</td></tr>
+</tbody></table></div>
+<div class="answer"><b>English:</b> “The compiler translates the entire source program before execution. The linker combines object code with required libraries to create an executable.”</div>
+</section>
+
+<section><h2>Week 2 补充：NumPy、SciPy 与 Pandas</h2>
+<h3>NumPy 课件纠错 / Slide correction</h3>
+<div class="callout warning"><b>原材料写法：</b> <code>np.arrange()</code><br><b>正确写法：</b> <code>np.arange()</code>。它类似 Python 的 <code>range</code>；非整数区间或需要固定点数时优先使用 <code>np.linspace(start, stop, num)</code>。</div>
+<pre><code>import numpy as np
+
+a = np.arange(0, 10, 2)       # [0, 2, 4, 6, 8]
+b = np.linspace(0, 1, 5)      # five evenly spaced values, endpoint included
+np.random.seed(7)              # reproducible random sequence
+r = np.random.randint(0, 10, size=(2, 3))</code></pre>
+<p>Vectorization 的原因：array 元素使用同质 dtype，因此 NumPy 可对整块数据运行相同操作，避免 Python 循环中不断检查类型。</p>
+<div class="table-wrap"><table class="table"><thead><tr><th>Operation</th><th>Shape idea</th><th>Exam sentence</th></tr></thead><tbody>
+<tr><td><code>concatenate</code></td><td>沿已有 axis 接合，维度数通常不变。</td><td>“Concatenate joins arrays along an existing axis.”</td></tr>
+<tr><td><code>stack</code></td><td>增加一个新 axis。</td><td>“Stack combines arrays along a new axis.”</td></tr>
+<tr><td><code>split</code></td><td>按份数或 break indices 拆分。</td><td>“Split is the inverse idea of concatenation.”</td></tr>
+<tr><td><code>argsort</code></td><td>返回排序位置，不返回排序值。</td><td>“Argsort returns the indices that would sort the array.”</td></tr>
+</tbody></table></div>
+
+<h3>SciPy 的具体案例 / Concrete scientific tasks</h3>
+<div class="grid">
+<div class="card"><h3>Integration</h3><p><code>quad</code> 计算一元积分。例如 ∫₀¹ 10x dx = 5。<code>dblquad</code> 计算二重积分。</p></div>
+<div class="card"><h3>Fourier transform</h3><p><code>fft</code> 把信号从 time domain 转到 frequency components；<code>ifft</code> 进行逆变换。</p></div>
+<div class="card"><h3>Linear algebra</h3><p><code>linalg</code> 处理 inverse、linear systems、eigenvalues 等。矩阵 B 是 A 的 inverse 时，AB=I。</p></div>
+<div class="card"><h3>Optimisation</h3><p><code>minimize</code> 寻找使函数最小的输入，例如 <code>(x-3)^2</code> 的最小点是 x=3。</p></div>
+<div class="card"><h3>Interpolation</h3><p>根据已知数据点构造其间的新值；属于“inside known range”的估计。</p></div>
+<div class="card"><h3>Curve fitting</h3><p>寻找最贴合数据的函数参数。课件弹簧案例：<code>y(t)=A cos(ωt+φ)</code>，拟合 A、ω、φ。</p></div>
+</div>
+
+<h3>Pandas 的三种 DataFrame 创建方法</h3>
+<pre><code>pd.DataFrame(np.array([[1, 2], [3, 4]]), columns=["x", "y"])
+pd.DataFrame({"x": [1, 3], "y": [2, 4]})
+pd.DataFrame([[1, 2], [3, 4]], columns=["x", "y"])</code></pre>
+<p><code>loc</code> 始终按 explicit label；<code>iloc</code> 始终按 integer position。Series 切片后原 index 会跟着 value 保留，不会自动重新编号。Iris 课件案例用 summary statistics 观察：petal length/width 可帮助区分 species。</p>
+</section>
+
+<section><h2>Week 3 补充：搜索性质与专家系统案例</h2>
+<h3>搜索策略的考试比较表</h3>
+<div class="table-wrap"><table class="table"><thead><tr><th>Strategy</th><th>Chooses</th><th>Lecture property</th><th>Main risk</th></tr></thead><tbody>
+<tr><td>BFS</td><td>shallowest depth first</td><td>complete; time O(b<sup>d</sup>); space O(b<sup>d</sup>); cost optimality not guaranteed for general costs</td><td>large memory</td></tr>
+<tr><td>Uniform-cost</td><td>lowest <code>g(n)</code></td><td>finds lower-cost path before a higher-cost goal</td><td>many low-cost alternatives</td></tr>
+<tr><td>DFS</td><td>deepest node</td><td>not guaranteed complete; time O(b<sup>m</sup>); lecture lists space O(bm); not cost optimal</td><td>wrong/infinite path</td></tr>
+<tr><td>Depth-limited</td><td>deepest up to limit <code>l</code></td><td>time O(b<sup>l</sup>), space O(bl)</td><td>goal below limit is missed</td></tr>
+<tr><td>Iterative deepening</td><td>repeated depth limits</td><td>gradually increases limit until goal</td><td>repeats earlier work</td></tr>
+<tr><td>Bidirectional</td><td>forward + backward frontiers</td><td>stops when frontiers intersect</td><td>requires a usable known goal</td></tr>
+<tr><td>Greedy</td><td>lowest <code>h(n)</code></td><td>estimated closeness to goal</td><td>ignores cost already paid</td></tr>
+<tr><td>A*</td><td>lowest <code>f(n)=g(n)+h(n)</code></td><td>combines past and estimated future cost</td><td>depends on heuristic quality</td></tr>
+</tbody></table></div>
+<p>符号：<code>b</code> maximum branching factor；<code>d</code> depth of the least-cost/shallow solution used in the lecture；<code>m</code> maximum depth；<code>l</code> depth limit。</p>
+
+<h3>MYCIN 与 shallow/deep expert systems</h3>
+<div class="bilingual"><div><h3>MYCIN</h3><p>1970s Stanford medical expert system，使用约 600 条 IF–THEN rules 和 certainty factors 诊断血液感染并推荐 antibiotics。它未投入临床实践，课件给出的原因是 ethical concerns。</p></div><div><h3>Shallow vs deep</h3><p>Shallow system 使用 surface knowledge 和 rule-based heuristics；deep system 包含 causal/model knowledge，并结合 rule-based 和 model-based reasoning。</p></div></div>
+<div class="table-wrap"><table class="table"><thead><tr><th>Expert-system strength</th><th>Expert-system limitation</th></tr></thead><tbody>
+<tr><td>一致地应用规则；保存稀缺专家知识；帮助非专家；不会忘记提问。</td><td>缺少 common sense/creativity；知识库或 inference engine 错误会传播；不能自动适应变化；构建成本高。</td></tr>
+</tbody></table></div>
+<p>PyKE fact 类型：case-specific facts 在 inference engine reset 后清除；universal facts 保留。Pattern variable 以 <code>$</code> 开头并可绑定；anonymous variable 以 <code>$_</code> 开头且不保留绑定结果。</p>
+</section>
+
+<section><h2>Week 4 补充：课件代码纠错与模型工作流</h2>
+<h3>训练/测试代码的现代正确写法</h3>
+<div class="callout warning">
+<p><b>课件旧写法：</b> <code>from sklearn.cross_validation import train_test_split</code></p>
+<p><b>现代写法：</b> <code>from sklearn.model_selection import train_test_split</code></p>
+<p>课件的 serial slicing 例子也有 off-by-one 和二维 <code>iloc</code> 语法问题。正确写法如下。</p>
+</div>
+<pre><code>nrows = len(dataset)
+cut = int(nrows * 0.8)
+train = dataset.iloc[:cut, :]
+test = dataset.iloc[cut:, :]
+
+X = dataset.iloc[:, :-1]
+y = dataset.iloc[:, -1]</code></pre>
+<p>课件中的 <code>dataset.iloc[:, ncols]</code> 会越界，因为最后一列位置是 <code>ncols-1</code>，可直接写 <code>-1</code>。</p>
+
+<h3>端到端分类流程 / Classification workflow</h3>
+<div class="flow"><div class="step"><b>Load</b><br>读取数据</div><div class="arrow">→</div><div class="step"><b>Separate</b><br>X features / y target</div><div class="arrow">→</div><div class="step"><b>Split</b><br>train / test</div><div class="arrow">→</div><div class="step"><b>Scale</b><br>when needed</div><div class="arrow">→</div><div class="step"><b>Fit</b><br>训练模型</div><div class="arrow">→</div><div class="step"><b>Predict</b><br>测试集预测</div><div class="arrow">→</div><div class="step"><b>Evaluate</b><br>metrics</div></div>
+
+<h3>混淆矩阵为什么比 accuracy 更完整</h3>
+<p>课件案例：90 个 healthy、10 个 unhealthy。若模型把全部人都预测为 healthy，accuracy 仍是 90%，但所有真正 unhealthy 的样本都漏掉。此时 positive class 的 recall 为 0。</p>
+<div class="formula">precision = TP/(TP+FP) &nbsp; | &nbsp; recall = TP/(TP+FN) &nbsp; | &nbsp; F1 = 2PR/(P+R)</div>
+<p>模型选择：linear regression 预测 continuous target；logistic regression 输出 sigmoid probability 并用于 binary classification；random forest 通过 multiple trees + bagging 提高稳定性；KNN 按距离，需要注意 scaling；SVM 最大化 margin，kernel 包括 linear、polynomial、RBF、sigmoid。</p>
+</section>
+
+<section><h2>Week 6 补充：手算 K-means、层次聚类与 Apriori</h2>
+<h3>K-means medicine worked example</h3>
+<p>课件数据：A=(1,1)、B=(2,1)、C=(4,3)、D=(5,4)，k=2，初始中心 c1=A、c2=B。</p>
+<div class="table-wrap"><table class="table"><thead><tr><th>Point</th><th>Distance to A</th><th>Distance to B</th><th>Initial assignment</th></tr></thead><tbody>
+<tr><td>A(1,1)</td><td>0</td><td>1</td><td>Cluster 1</td></tr>
+<tr><td>B(2,1)</td><td>1</td><td>0</td><td>Cluster 2</td></tr>
+<tr><td>C(4,3)</td><td>√13 ≈ 3.61</td><td>√8 ≈ 2.83</td><td>Cluster 2</td></tr>
+<tr><td>D(5,4)</td><td>5</td><td>√18 ≈ 4.24</td><td>Cluster 2</td></tr>
+</tbody></table></div>
+<p>第一次更新：c1=(1,1)；c2=((2+4+5)/3,(1+3+4)/3)=(11/3,8/3)。重新分配后 B 会移到 Cluster 1，得到 A/B 与 C/D 两组；再更新到 c1=(1.5,1)、c2=(4.5,3.5)，随后 membership 稳定。</p>
+
+<h3>Hierarchical linkage worked example</h3>
+<p>课件距离矩阵中最小距离是 d(A,B)=1，所以先合并 A 和 B。</p>
+<ul>
+<li><b>Single link:</b> d({A,B},C)=min(2,2)=2；d({A,B},D)=min(2,5)=2；因此 C、D 可在 level 2 接入，E 在 level 3 接入。</li>
+<li><b>Complete link:</b> d({A,B},C)=max(2,2)=2；之后 D 与 {A,B,C} 的 complete distance 为 5，E 最后在 6 接入。</li>
+</ul>
+<p>Single link 看最近的一对，容易产生 chaining；complete link 看最远的一对，更偏好紧凑 cluster。</p>
+
+<h3>Apriori worked example</h3>
+<p>课件示例给出 L1 counts：A=6、B=7、C=5、D=2；minimum support count=2。L2 保留 {A,B}=4、{A,C}=4、{B,C}=4、{B,D}=2；L3 只保留 {A,B,C}=2。</p>
+<div class="table-wrap"><table class="table"><thead><tr><th>Rule</th><th>Confidence calculation</th><th>At 50% threshold</th></tr></thead><tbody>
+<tr><td>{A,B} → C</td><td>support(ABC)/support(AB)=2/4=50%</td><td>Strong</td></tr>
+<tr><td>{B,C} → A</td><td>2/4=50%</td><td>Strong</td></tr>
+<tr><td>{A,C} → B</td><td>2/4=50%</td><td>Strong</td></tr>
+<tr><td>A → {B,C}</td><td>2/6≈33%</td><td>Not strong</td></tr>
+<tr><td>B → {A,C}</td><td>2/7≈29%</td><td>Not strong</td></tr>
+<tr><td>C → {A,B}</td><td>2/5=40%</td><td>Not strong</td></tr>
+</tbody></table></div>
+<p>Density-based clustering 把高密度区域连接成任意形状 cluster，但 varying density/high dimension 可能困难。Distribution model-based clustering 假设数据来自某种概率分布，例如 Gaussian mixture models。</p>
+</section>
+
+<section><h2>考试英语补充 / Exam English</h2>
+<div class="table-wrap"><table class="table"><thead><tr><th>Task</th><th>Frame</th></tr></thead><tbody>
+<tr><td>定义</td><td>“___ is ___. It is used to ___.”</td></tr>
+<tr><td>比较</td><td>“A ___, whereas B ___.”</td></tr>
+<tr><td>解释代码</td><td>“The code first ___. It then ___. Therefore, ___.”</td></tr>
+<tr><td>算法步骤</td><td>“First, ___. Next, ___. The process repeats until ___.”</td></tr>
+<tr><td>局限</td><td>“One limitation is ___. This matters because ___.”</td></tr>
+<tr><td>图片</td><td>“The image shows ___. It illustrates ___ because ___.”</td></tr>
+</tbody></table></div>
+<ul class="checklist">
+<li><input data-check type="checkbox">我能指出课件旧 API 与现代正确写法。</li>
+<li><input data-check type="checkbox">我能写搜索算法的 selection rule 和主要性质。</li>
+<li><input data-check type="checkbox">我能解释 MYCIN、shallow/deep expert system。</li>
+<li><input data-check type="checkbox">我能从混淆矩阵解释 accuracy、precision、recall。</li>
+<li><input data-check type="checkbox">我能手算 K-means 至少两轮。</li>
+<li><input data-check type="checkbox">我能从 distance matrix 完成 single/complete linkage。</li>
+<li><input data-check type="checkbox">我能从 frequent itemsets 计算 rule confidence。</li>
+</ul>
+<div class="progress"><span data-progress-bar></span></div><p data-progress-text class="muted">0 / 0 completed</p>
+</section>
+
+<section><h2>课程源文件覆盖审计 / Source coverage audit</h2><p>本轮逐份核对了用户指定的 10 份课程 Markdown，并检查了其中引用的 870 个图片资源；按文件内容去重后为 724 个独立图片。重复 Logo、背景、色块、箭头和同一图的重复切片不重复放入网页，但图中承载的定义、步骤、公式、代码输出和案例均转写到对应周页面或图片补充页。</p><div class="table-wrap"><table class="table"><thead><tr><th>Source Markdown</th><th>Main website coverage</th><th>Newly reinforced knowledge</th></tr></thead><tbody>
+<tr><td>Week_1_1_Introduction_Programming.md</td><td><a href="week1.html">Week 1</a> §§1–11</td><td>language levels、compiler/interpreter/linker、programming lifecycle、coding vs programming</td></tr>
+<tr><td>Week_1_2_Python_Fundamentals.md</td><td><a href="week1.html">Week 1</a> §§2–11</td><td>types、collections、functions、argument order、loops、break/continue、exceptions</td></tr>
+<tr><td>Week2-1_Numpy.md</td><td><a href="week2.html">Week 2</a> §§1–13</td><td>creation、shape/axis、reshape、stack、broadcast、mask、fancy indexing、argsort</td></tr>
+<tr><td>Week2-2_Matplot.md</td><td><a href="week2.html">Week 2</a> §§4, 9</td><td>figure/axes、subplots、labels、line/bar/histogram/scatter/area/pie selection</td></tr>
+<tr><td>Week2-3_SciPy.md</td><td><a href="week2.html">Week 2</a> §§5, 10, 12–13</td><td>all listed subpackages、integration、FFT、linalg、optimization、interpolation、curve fitting</td></tr>
+<tr><td>Week2-4_Pandas.md</td><td><a href="week2.html">Week 2</a> §§6, 11–13</td><td>Series/DataFrame、loc/iloc、construction、index labels、summary/group statistics、Iris plot</td></tr>
+<tr><td>Week_3_1_Intro to AI.md</td><td><a href="week3.html">Week 3</a> §§1–5, 9–10, 13–14</td><td>four AI views、symbolic/sub-symbolic、applications、complexity、heuristics、eight search strategies</td></tr>
+<tr><td>Week_3_2_Expert_System.md</td><td><a href="week3.html">Week 3</a> §§6–7, 11–14</td><td>architecture、roles、advantages/limits、forward/backward、shallow/deep、MYCIN、PyKE</td></tr>
+<tr><td>Week 4-1_ Intro to ML.md</td><td><a href="week4.html">Week 4</a> §§1–13</td><td>AI/ML/DL relation、task map、split/CV、seven algorithms、Bayes calculation、metrics</td></tr>
+<tr><td>Week 6-1_Unsupervised Learning.md</td><td><a href="week6.html">Week 6</a> §§1–14</td><td>five clustering families、distance、K-means、hierarchy/linkage、association rules、Apriori</td></tr>
+</tbody></table></div><p class="small">“覆盖”表示知识内容已进入网页，不表示每张装饰图片都被原样重复展示。若课件中的 API 已过时或代码有明显拼写错误，网页保留课程意图并同时给出现代正确写法。</p></section>
+
+<div class="page-links"><a href="python_midterm_review.html">← 总览</a><a href="visual_supplements.html">图片补充 →</a><a href="course_cases.html">课程案例 →</a></div>
+<p class="footer">Audited against all Markdown files under D:\Users\81489\Desktop\python课程pdf. Practice answers on this page are newly worked from lecture examples and do not reveal restricted mock or past-sample answer keys.</p>
+</main>
+<script src="review.js"></script>
+</body></html>

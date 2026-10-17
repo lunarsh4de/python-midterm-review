@@ -1,0 +1,14 @@
+*
+!.gitignore
+!.github/
+!.github/workflows/
+!.github/workflows/deploy-pages.yml
+!output/
+output/*
+!output/*.html
+!output/*.css
+!output/*.js
+!output/.nojekyll
+!output/course-assets/
+!output/course-assets/**
+!sync_github_pages.ps1

@@ -1,0 +1,38 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Assignment 2 · Weather data</title><link rel="stylesheet" href="review.css"></head>
+<body data-page="assignment2"><header><div class="wrap"><div class="eyebrow">Assignment 2 · Supplementary brief</div><h1>天气数据分析<br><span class="subtitle">Pandas and Matplotlib practice</span></h1><p>把 Week 2 的 DataFrame、缺失值、条件筛选、统计和图表连接成一个小型 exploratory analysis。</p><div class="chips"><span class="chip">CSV</span><span class="chip">missing values</span><span class="chip">filtering</span><span class="chip">plots</span></div></div></header>
+<nav class="topnav"><div class="wrap"><a href="python_midterm_review.html">总览</a><a href="week1.html">Week 1</a><a href="week2.html">Week 2</a><a href="week3.html">Week 3</a><a href="week4.html">Week 4</a><a href="week5.html">Week 5</a><a href="week6.html">Week 6</a><a class="active" href="assignment2.html">Assignment 2</a><a href="knowledge_supplement.html">知识补充</a><a href="visual_supplements.html">图片补充</a></div></nav><main><p class="breadcrumbs"><a href="python_midterm_review.html">Home</a> / Assignment 2</p>
+<section class="summary"><div class="summary-main"><h2>知识点概括 / Knowledge overview</h2><p>Assignment 2 的 20 个任务练习数据读取和探索分析：导入库、加载 CSV、查看头尾、shape、数值统计、缺失值、删除行列、列名、筛选、unique/value counts、柱状图和散点图。</p><p class="en"><b>The assignment practises a standard exploratory data analysis workflow with Pandas and Matplotlib.</b></p></div><aside class="summary-side"><h2>边界 / Boundary</h2><p>它是数据工具应用练习，不是完整考试范围。天气 CSV 的完整内容没有嵌入资料，具体统计数值属于资料未知。</p></aside></section>
+<section><h2>1. 数据集结构 / Dataset</h2><p>WeatherHistory.csv 是 Szeged, Hungary 2006–2016 的 hourly/daily summary。资料列包括 Formatted Date、Summary、Precip Type、Temperature、Apparent Temperature、Humidity、Wind Speed、Wind Bearing、Visibility、Loud Cover、Pressure、Daily Summary。</p><pre><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+weather = pd.read_csv("weatherHistory.csv")</code></pre></section>
+<section><h2>2. 20 项任务的知识分类 / Task map</h2><div class="table-wrap"><table class="table"><thead><tr><th>Task group</th><th>What it practises</th><th>Typical code</th></tr></thead><tbody><tr><td>Inspect</td><td>前 6 行、后 3 行、行列数、列名</td><td><code>head(6)</code>、<code>tail(3)</code>、<code>shape</code>、<code>columns</code></td></tr><tr><td>Statistics</td><td>数值列基本统计</td><td><code>describe()</code></td></tr><tr><td>Missing values</td><td>是否存在、按列计数、总数、显示缺失行、删除缺失行</td><td><code>isnull()</code>、<code>sum()</code>、<code>any(axis=1)</code>、<code>dropna()</code></td></tr><tr><td>Columns</td><td>删除列、选择列</td><td><code>drop(..., axis=1)</code>、<code>df[[...]]</code></td></tr><tr><td>Categories</td><td>unique 数量、unique 值、每类计数</td><td><code>nunique()</code>、<code>unique()</code>、<code>value_counts()</code></td></tr><tr><td>Plots</td><td>Temperature 关系、Summary 类别比较</td><td><code>scatter</code>、<code>bar</code>、<code>title</code></td></tr><tr><td>Boolean filter</td><td>温度大于 35 的行和指定列</td><td><code>.loc[condition, columns]</code></td></tr></tbody></table></div></section>
+<section><h2>3. 推荐代码骨架 / Code skeleton</h2><pre><code>df = pd.read_csv("weatherHistory.csv")
+print(df.head(6))
+print(df.tail(3))
+print(df.shape)
+print(df.describe())
+print(df.isnull().any())
+print(df.isnull().sum())
+print(df.isnull().sum().sum())
+print(df[df.isnull().any(axis=1)])
+
+clean = df.dropna()
+without_precip = df.drop("Precip Type", axis=1)
+print(df.columns)
+
+selected = df[["Temperature (C)", "Apparent Temperature (C)"]]
+hot = df.loc[
+    df["Temperature (C)"] > 35,
+    ["Temperature (C)", "Humidity", "Wind Speed (km/h)"]
+]
+
+counts = df["Summary"].value_counts()
+counts.plot(kind="bar", title="Summary")
+plt.scatter(df["Temperature (C)"], df["Apparent Temperature (C)"])
+plt.title("Apparent Temperature vs Temperature")
+plt.show()</code></pre><p class="small">课件/作业中可能有拼写问题，例如 “Temperatue”。写代码时必须使用 CSV header 中准确的 <code>Temperature (C)</code>。</p></section>
+<section><h2>4. 英文解释 / English frames</h2><div class="answer"><p>“<code>df.shape</code> returns the number of rows and columns.”</p><p>“The Boolean mask selects rows where the temperature is greater than 35.”</p><p>“<code>dropna()</code> returns rows that contain no missing values by default.”</p><p>“A scatter plot is suitable because temperature and apparent temperature are quantitative variables.”</p></div></section>
+<section><h2>5. 自检 / Check</h2><ul class="checklist"><li><input data-check type="checkbox">我能区分 <code>isnull().sum(axis=0)</code> 和 <code>isnull().sum(axis=1)</code>。</li><li><input data-check type="checkbox">我能用 Boolean mask 显示所有缺失行。</li><li><input data-check type="checkbox">我能写 <code>.loc[condition, columns]</code>。</li><li><input data-check type="checkbox">我能选择 bar chart 和 scatter plot。</li><li><input data-check type="checkbox">我知道 Assignment 2 不能代表全部考试考点。</li></ul><div class="progress"><span data-progress-bar></span></div><p data-progress-text class="muted">0 / 0 completed</p></section>
+<div class="page-links"><a href="week6.html">← Week 6</a><a href="python_midterm_review.html">回到总览 →</a></div><p class="footer">Source: Assignment 2 brief in the supplied course materials. The full CSV is not embedded.</p></main><script src="review.js"></script></body></html>

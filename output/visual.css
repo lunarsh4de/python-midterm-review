@@ -1,0 +1,8 @@
+.visual-supplement{margin:1.1rem 0;padding:1rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.visual-supplement h3{margin-top:0}
+.visual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.visual-card{margin:0;border:1px solid var(--line);border-radius:10px;background:#fbfdff;overflow:hidden}
+.visual-card img{display:block;width:100%;max-height:300px;object-fit:contain;background:#edf3f9}
+.visual-card figcaption{padding:.7rem;font-size:.92rem}
+.visual-card figcaption strong{display:block;color:#0d4f9b;margin-bottom:.2rem}
+.visual-note{margin-top:.7rem;padding:.65rem .8rem;border-left:4px solid var(--teal);background:var(--teal-2);border-radius:7px}
