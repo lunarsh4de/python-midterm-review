@@ -1,0 +1,751 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="根据 Python 课程对话与原始 PDF 核对整理的中英双语课堂冲刺：逐步执行、易错点、考试表达和本地遗漏清单。"><title>课堂冲刺 · Python 双语复习</title><link rel="stylesheet" href="review.css?v=20261022"><link rel="stylesheet" href="dialogue-review.css?v=20261022b"></head><body data-page="dialogue"><header><div class="wrap"><div class="eyebrow">LESSONS FROM OUR CLASSROOM · 2026-10-22</div><h1>课堂冲刺<br><span class="subtitle">Understand → Trace → Explain</span></h1><p>把对话里问过的“为什么”，变成能理解、能追踪、能用简单英语作答的小模块。按顺序学，也可以从遗漏项返回。</p><div class="chips"><span class="chip">中文解释</span><span class="chip">Simple English</span><span class="chip">每模块 3 个检查</span><span class="chip">本地学习记录</span></div></div></header><nav class="topnav"><div class="wrap"><a href="python_midterm_review.html">总览</a><a href="week1.html">Week 1</a><a href="week2.html">Week 2</a><a href="week3.html">Week 3</a><a href="week4.html">Week 4</a><a href="week6.html">Week 6</a><a class="active" href="dialogue-review.html">课堂冲刺</a></div></nav><main>
+<section class="study-intro" aria-labelledby="study-map"><h2 id="study-map">先看地图，再进入一个模块</h2><p>Week 1：名字、序列、容器、函数 → Week 2：数组、图表、科学计算、数据表 → Week 3：搜索与规则推理 → Week 4：数据、模型、评价。Week 4 是核对原课件后新整理的衔接内容，不预设你已经听完或掌握。</p><p>所有“可能考法”和模块检查是复习练习，不代表官方题目或分值。讲解例题提供完整过程；自测提交后才显示参考结果。作业和往年试卷的答案未纳入这些模块。</p><p class="small">学习状态只按本页明确作答和自评记录，不把聊天里的“讲过”自动变成“会了”。记录保存在当前浏览器，换浏览器或清理存储不会自动同步。</p></section>
+<section class="study-controls" aria-label="学习控制"><div class="study-controls-row"><label for="lesson-select">选择模块</label><select id="lesson-select"><option value="names-strings">01 · W1 · 变量、引号与 Python / C++ 的区别</option><option value="range-slice">02 · W1 · range、切片与 iteration：包含起点，不包含终点</option><option value="collections-sort">03 · W1 · list、tuple、dict、set 与 reverse=True</option><option value="functions-return">04 · W1 · 函数名 double、parameter、argument 与 return</option><option value="numpy-create">05 · W2 · 数组、双层中括号、eye 与奇数个数据</option><option value="axis-defaults">06 · W2 · 重点复查：NumPy mean 与 Pandas mean 的默认方向</option><option value="numpy-index">07 · W2 · 二维切片、mask、argsort、广播与组合</option><option value="matplotlib">08 · W2 · 图表怎么读：x/y 配对、legend 与 Figure/Axes</option><option value="scipy">09 · W2 · SciPy 精简复习：积分、返回值与科学计算任务</option><option value="pandas-index">10 · W2 · DataFrame 为什么竖着显示？loc 与 iloc 怎样区分？</option><option value="pandas-analysis">11 · W2 · 筛选、缺失值、describe、mode 与分组统计</option><option value="ai-problem">12 · W3 · AI 四种观点、风险与搜索问题的组成</option><option value="bfs-dfs">13 · W3 · BFS、DFS、DLS、IDS 和双向搜索</option><option value="ucs">14 · W3 · UCS：为什么看到目标 G=11 还不能停止？</option><option value="astar">15 · W3 · Greedy 与 A*：g、h、f，以及八数码估计</option><option value="expert-architecture">16 · W3 · 专家系统结构、知识获取与 MYCIN</option><option value="chaining">17 · W3 · 正向、反向与“没有证明”之间的区别</option><option value="pyke-family">18 · W3 · PyKE 家庭关系：文件、变量与 Fred 的侄子</option><option value="pyke-weather">19 · W3 · 天气两版规则与多个答案：以课件给定规则为准</option><option value="ml-data">20 · W4 · ML 衔接：X/y、三类学习、划分与交叉验证</option><option value="ml-regression">21 · W4 · 线性回归手算与 MAE/MSE/RMSE/R² 纠错</option><option value="ml-metrics">22 · W4 · Logistic regression、阈值与混淆矩阵手算</option><option value="ml-trees">23 · W4 · 决策树与随机森林：条件路径和投票</option><option value="ml-bayes">24 · W4 · Naïve Bayes：先验、条件概率与归一化</option><option value="ml-knn-svm">25 · W4 · KNN、SVM 与可运行的训练流程</option></select></div><div class="study-controls-row"><button class="button" type="button" data-prev>← 上一模块</button><button class="button" type="button" data-next>下一模块 →</button><button class="button" type="button" data-focus aria-pressed="true">显示全部模块</button><button class="button" type="button" data-open-gaps>查看遗漏清单</button></div><p data-study-progress role="status"></p><p data-storage-notice class="small" role="status"></p></section>
+<aside class="gap-panel" id="gap-list" aria-labelledby="gap-heading"><h2 id="gap-heading" tabindex="-1">遗漏清单 / Review queue</h2><p>听过但不会解释 → 会解释但不会做题 → 会做题但英语不清楚。条件未验证的保留“待验证”；从未学习的单独列出。每完成 3 个不同模块的首次检查，自动提示回顾已发现的遗漏。</p><p data-review-reminder role="status" aria-live="polite"></p><div data-gap-summary></div><ul data-gap-items></ul></aside>
+<noscript><p class="callout warning">JavaScript 已关闭：仍可阅读全部讲解与题目，提交反馈、逐模块显示和本地记录需要 JavaScript。</p></noscript><div id="lessons"><article class="lesson" id="names-strings" data-lesson="names-strings" data-week="1" aria-labelledby="names-strings-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 01 · WEEK 1 · 建议 10–15 分钟，含手算与检查</p><h2 id="names-strings-title" tabindex="-1">01. 变量、引号与 Python / C++ 的区别</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week01_02_Python_Fundamentals.pdf · pp.10–15；对话中的 C/C++ 对照为教学补充</p>
+<h3>1. 中文通俗解释</h3><p>变量名像贴在值上的标签。x = &quot;hello&quot; 把名字 x 与一段文字关联；x = hello 则要求 Python 先查找名为 hello 的对象，找不到会出现 NameError。</p><p>单引号和双引号都能创建字符串，必须成对。&quot;a&quot; 和 &#x27;a&#x27; 都是 str；Python 没有像 C 那样独立的 char 基础类型。</p><p>Python 给名字赋值时不要求先写 int i。for i in ... 会在每轮把一个值赋给 i；若可迭代对象为空，该循环不会创建新的 i 绑定。对象有类型，但同一名字以后可以指向另一类型的对象。</p><p>C++ 常用花括号表示代码块，Python 用冒号和缩进。Python 的 True/False 首字母大写；and/or/not 是逻辑运算。Python 的 / 通常返回浮点数；// 表示向下取整除法。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Quotes create a string. Without quotes, Python looks up a name. A loop assigns a value to its loop variable on each iteration.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>x = &#x27;hello&#x27;
+y = &quot;hello&quot;
+print(x == y)
+for i in range(2):
+    print(i)
+print(type(x).__name__)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>True
+0
+1
+str</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>两个变量保存相同文字，因此比较结果为 True。</li><li>range(2) 依次给 i 赋值 0 和 1，然后执行缩进的 print。</li><li>type(x).__name__ 取得类型名称 str。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把文字忘记加引号；把 True 写成 true；把变量名大小写混用。</li><li>动态类型不代表可以在首次赋值前读取一个不存在的名字。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>解释 x = &quot;hello&quot; 与 x = hello 的区别；比较 Python 与 C++ 的变量和代码块写法。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="names-strings">
+<fieldset><legend>检查 1 · 判断题</legend><p>Python 的单引号可以创建字符串。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>print(&quot;hi&quot; == &#x27;hi&#x27;)</code></pre><label for="names-strings-output">写出输出（可使用英文；忽略空格差异）</label><input id="names-strings-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="names-strings-english">用一句英语解释引号的作用。</label><textarea id="names-strings-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>True</code></p><p lang="en"><b>English:</b> Quotes tell Python that the value is a string.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="names-strings-explain">我能不看原文用中文解释这个概念吗？</label><select id="names-strings-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="names-strings-language">我的英语表达是否清楚？</label><select id="names-strings-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week1.html#dialogue-additions">返回 Week 1 对照复习 →</a></p></article><article class="lesson" id="range-slice" data-lesson="range-slice" data-week="1" aria-labelledby="range-slice-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 02 · WEEK 1 · 建议 10–15 分钟，含手算与检查</p><h2 id="range-slice-title" tabindex="-1">02. range、切片与 iteration：包含起点，不包含终点</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week01_02_Python_Fundamentals.pdf · pp.18,32–40</p>
+<h3>1. 中文通俗解释</h3><p>range(0, 2) 描述 0、1，stop=2 是停止边界，不是要访问的第二个索引。list(range(0, 2)) 才会把这些值列成列表。range 本身不是现成列表。</p><p>z[0:2] 是取从索引 0 开始、到索引 2 之前的一段。z[[0,2]] 不是普通列表的写法；要从列表取两个独立位置，可写 [z[0], z[2]]。</p><p>iteration 是循环的一轮。for i in range(0,5) 有五轮，i 依次为 0、1、2、3、4。continue 跳过当前轮剩余代码；break 结束当前循环。</p><p>start:stop:step 的 step 是步长。负步长可倒着走，例如 range(4,0,-1)；step=0 不允许。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">The start is included and the stop is excluded. An iteration is one pass through a loop.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>z = [10, 20, 30, 40]
+print(z[0:2])
+print([z[0], z[2]])
+print(list(range(0, 5, 2)))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[10, 20]
+[10, 30]
+[0, 2, 4]</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>切片访问索引 0、1，对应 10、20。</li><li>独立索引访问位置 0、2，对应 10、30。</li><li>range 从 0 每次增加 2，产生 0、2、4；下一个 6 已越过停止边界。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 [0:2] 理解成“取位置 0 和 2”。</li><li>把 range(5) 当成 1 到 5；把 continue 当成结束整个循环。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>预测循环输出；区分一段 slice 与多个独立 index；说明一轮 iteration。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="range-slice">
+<fieldset><legend>检查 1 · 判断题</legend><p>list(range(0, 2)) 的结果包含 2。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>print([1, 2, 3, 4][0:2])</code></pre><label for="range-slice-output">写出输出（可使用英文；忽略空格差异）</label><input id="range-slice-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="range-slice-english">解释 range(0,2)。</label><textarea id="range-slice-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>[1, 2]</code></p><p lang="en"><b>English:</b> It produces 0 and 1. The stop value 2 is excluded.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="range-slice-explain">我能不看原文用中文解释这个概念吗？</label><select id="range-slice-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="range-slice-language">我的英语表达是否清楚？</label><select id="range-slice-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week1.html#dialogue-additions">返回 Week 1 对照复习 →</a></p></article><article class="lesson" id="collections-sort" data-lesson="collections-sort" data-week="1" aria-labelledby="collections-sort-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 03 · WEEK 1 · 建议 10–15 分钟，含手算与检查</p><h2 id="collections-sort-title" tabindex="-1">03. list、tuple、dict、set 与 reverse=True</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week01_02_Python_Fundamentals.pdf · pp.16–26</p>
+<h3>1. 中文通俗解释</h3><p>list 是可以修改的有序序列；tuple 是不可修改的序列；dict 用 key 找 value；set 保存不重复元素，不能按位置索引。空集合要写 set()，{} 创建空字典。</p><p>sorted(x) 返回新的排序列表；x.sort() 修改原列表并返回 None。reverse=True 表示按排序规则降序，不是简单保留原顺序再倒放。</p><p>x.reverse() 才是把当前列表顺序倒转，返回 None。rrue 不是关键字，reverse=rrue 会查找名为 rrue 的变量。</p><p>集合输出顺序不能当成固定答案。字典在现代 Python 中保持插入顺序，但取值仍按 key 的含义进行。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A set stores unique elements. sorted returns a new list, while list.sort changes the original list.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>a = [3, 1, 2]
+print(sorted(a, reverse=True))
+print(a)
+result = a.sort()
+print(a)
+print(result)
+print(len(set([1, 1, 2])))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[3, 2, 1]
+[3, 1, 2]
+[1, 2, 3]
+None
+2</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>sorted 生成 [3,2,1]，原列表仍是 [3,1,2]。</li><li>a.sort() 直接把 a 改成升序，并把返回值 None 赋给 result。</li><li>set 去重后有两个元素，因此长度为 2。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>写 a = a.sort() 导致 a 变成 None。</li><li>set 没有 a[0] 这种位置访问；(&quot;x&quot;) 是字符串，(&quot;x&quot;,) 才是单元素元组。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>比较 mutable/immutable；辨认 {} 与 set()；判断 sort、sorted、reverse 的输出。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="collections-sort">
+<fieldset><legend>检查 1 · 判断题</legend><p>reverse=True 会修改 sorted 所接收的原列表。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>a = [2, 1]
+print(a.sort())</code></pre><label for="collections-sort-output">写出输出（可使用英文；忽略空格差异）</label><input id="collections-sort-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="collections-sort-english">解释 set。</label><textarea id="collections-sort-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>None</code></p><p lang="en"><b>English:</b> A set is a collection of unique elements.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="collections-sort-explain">我能不看原文用中文解释这个概念吗？</label><select id="collections-sort-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="collections-sort-language">我的英语表达是否清楚？</label><select id="collections-sort-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week1.html#dialogue-additions">返回 Week 1 对照复习 →</a></p></article><article class="lesson" id="functions-return" data-lesson="functions-return" data-week="1" aria-labelledby="functions-return-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 04 · WEEK 1 · 建议 10–15 分钟，含手算与检查</p><h2 id="functions-return-title" tabindex="-1">04. 函数名 double、parameter、argument 与 return</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week01_02_Python_Fundamentals.pdf · pp.27–30</p>
+<h3>1. 中文通俗解释</h3><p>def double(x) 里的 double 是自己取的函数名，不是 C/C++ 的 double 数值类型。Python 常用 float 表示浮点数。</p><p>parameter 是定义函数时的占位名字，例如 x；argument 是调用时给它的具体值，例如 double(3) 中的 3。call 是调用，return value 是返回值。</p><p>return 把结果交回调用处，并立即结束这一次函数调用；print 只是显示内容。没有显式 return 的函数返回 None。</p><p>C/C++ 的 main 中 return 0 常表示成功退出，是由 main 的约定决定的。普通函数里的 return 0 就是返回数值 0；Python 的 return 同样根据函数用途返回结果。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A parameter is a name in a function definition. An argument is a value passed to the function. return sends a result back to the caller.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>def double(x):
+    return x * 2
+
+def show(x):
+    print(x * 2)
+
+a = double(3)
+b = show(3)
+print(a, b)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>6
+6 None</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>double(3) 返回 6，保存到 a，但这一步没有 print。</li><li>show(3) 先显示 6；没有 return 值，因此 b 为 None。</li><li>最后 print 显示 6 None。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把屏幕上看到数字当成函数已返回该数字。</li><li>认为 return 后面的语句仍会继续执行；把自定义函数名当成 Python 关键字。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>指出函数名、parameter、argument；预测嵌套 print 和 return 的输出顺序。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="functions-return">
+<fieldset><legend>检查 1 · 判断题</legend><p>只调用 print 而没有 return 的函数，通常返回 None。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>def double(x):
+    return x * 2
+print(double(4))</code></pre><label for="functions-return-output">写出输出（可使用英文；忽略空格差异）</label><input id="functions-return-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="functions-return-english">解释 return。</label><textarea id="functions-return-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>8</code></p><p lang="en"><b>English:</b> return sends a value back to the caller and ends the current function call.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="functions-return-explain">我能不看原文用中文解释这个概念吗？</label><select id="functions-return-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="functions-return-language">我的英语表达是否清楚？</label><select id="functions-return-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week1.html#dialogue-additions">返回 Week 1 对照复习 →</a></p></article><article class="lesson" id="numpy-create" data-lesson="numpy-create" data-week="2" aria-labelledby="numpy-create-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 05 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="numpy-create-title" tabindex="-1">05. 数组、双层中括号、eye 与奇数个数据</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_01_Numpy.pdf · pp.7–18</p>
+<h3>1. 中文通俗解释</h3><p>np.array([[1,2,3],[4,5,6]]) 的外层括号收集各行，内层括号分别表示一行；结果 shape=(2,3)，ndim=2，size=6。一维数组完全可以使用，不必先变成矩阵。</p><p>奇数个数也能用：5 个元素可保持 shape=(5,)，也能 reshape(1,5) 或 (5,1)。reshape 只改变组织方式，不增删元素，目标形状各维长度相乘必须等于 size。</p><p>zeros 创建全 0；ones 创建全 1；full 填指定值；empty 不初始化为已知数，不能当成全 0。eye 默认在主对角线上放 1，其余为 0。eye(3) 是单位矩阵 I，矩阵乘法中 A @ I = A。</p><p>arange 按步长产生数值，通常不含 stop；linspace 按指定数量产生等间距数值，默认含终点。课件的 np.arrange 是拼写错误，正确名称是 np.arange。</p><p>规则数值数组通常要求各行长度一致。如果表格某格缺失，可用 np.nan 或 Pandas 缺失值表示；不要通过补一个没有含义的 0 来假装有测量值。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">An array does not have to be a matrix. Reshaping keeps the same number of elements. np.eye creates a two-dimensional array with ones on a diagonal.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import numpy as np
+b = np.array([[1, 2, 3], [4, 5, 6]])
+print(b.shape, b.ndim, b.size)
+print(np.arange(5).reshape(5, 1).shape)
+print(np.eye(2).tolist())
+print(np.linspace(0, 1, 3).tolist())</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>(2, 3) 2 6
+(5, 1)
+[[1.0, 0.0], [0.0, 1.0]]
+[0.0, 0.5, 1.0]</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>外层有两行，每行三个元素，因此形状 (2,3)。</li><li>五个值重排为五行一列，仍为五个值。</li><li>eye(2) 只有主对角线为 1；linspace 的第三个参数是个数 3。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>认为 NumPy 只能装偶数个元素；把 ndim 当成元素数。</li><li>认为 empty 保证全 0；把 linspace 的 num 当成 step；把 eye 的 I 当成普通逐元素乘法单位。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>给出数组判断 shape/size/ndim；选择合法 reshape；比较 zeros/empty/eye/arange/linspace。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="numpy-create">
+<fieldset><legend>检查 1 · 判断题</legend><p>5 个数不能存进 NumPy 数组。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import numpy as np
+print(np.arange(6).reshape(2, 3).shape)</code></pre><label for="numpy-create-output">写出输出（可使用英文；忽略空格差异）</label><input id="numpy-create-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="numpy-create-english">解释 reshape。</label><textarea id="numpy-create-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>(2, 3)</code></p><p lang="en"><b>English:</b> reshape changes the shape of an array without changing its number of elements.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="numpy-create-explain">我能不看原文用中文解释这个概念吗？</label><select id="numpy-create-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="numpy-create-language">我的英语表达是否清楚？</label><select id="numpy-create-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="axis-defaults" data-lesson="axis-defaults" data-week="2" aria-labelledby="axis-defaults-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 06 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="axis-defaults-title" tabindex="-1">06. 重点复查：NumPy mean 与 Pandas mean 的默认方向</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_01_Numpy.pdf · pp.30–32；Week02_04_Pandas.pdf · p.26</p>
+<h3>1. 中文通俗解释</h3><p>axis 指被聚合掉的维度。对二维表，axis=0 把行维度压缩掉，每一列得到一个结果；axis=1 把列维度压缩掉，每一行得到一个结果。不要仅背“0 是行”就猜输出。</p><p>NumPy 的 a.mean() 默认 axis=None，把整个数组的所有元素一起平均；a.mean(axis=0) 才是每列平均；a.mean(axis=1) 是每行平均。</p><p>对这里全部为数值的 DataFrame，df.mean() 默认 axis=0，即每列平均。混合文本列时要先选数值列或使用合适的 numeric_only 参数。</p><p>对话中 axis、默认 mean 和英语表达曾反复练习过。本模块是复查入口；“讲过”不等于现在已通过检查。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">a.mean() averages all elements of a NumPy array. axis=0 gives one result per column. axis=1 gives one result per row.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import numpy as np
+import pandas as pd
+a = np.array([[1, 2, 3], [4, 5, 6]])
+print(a.mean())
+print(a.mean(axis=0).tolist())
+print(a.mean(axis=1).tolist())
+print(a.sum(axis=1).tolist())
+print(pd.DataFrame(a).mean().tolist())</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>3.5
+[2.5, 3.5, 4.5]
+[2.0, 5.0]
+[6, 15]
+[2.5, 3.5, 4.5]</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>所有元素和为 21，共 6 个，默认 mean 为 3.5。</li><li>axis=0：把 1 与 4、2 与 5、3 与 6 分别平均。</li><li>axis=1：把每一行的三个数平均；sum(axis=1) 则求和，结果是 6、15。</li><li>DataFrame 默认按列聚合，因此得到三项。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 mean 与 sum 混淆；看到 axis=0 就以为每行输出。</li><li>把 NumPy 与 Pandas 的默认 mean 当成一样。英语应说 calculates，不是 computers/computering。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>预测聚合结果与结果长度；解释 axis=1；指出 a.mean() 与 df.mean() 的差异。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="axis-defaults">
+<fieldset><legend>检查 1 · 判断题</legend><p>二维 NumPy 数组的 a.mean() 默认逐行求平均。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import numpy as np
+a = np.array([[1, 2, 3], [4, 5, 6]])
+print(a.sum(axis=1).tolist())</code></pre><label for="axis-defaults-output">写出输出（可使用英文；忽略空格差异）</label><input id="axis-defaults-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="axis-defaults-english">解释 a.mean(axis=1)。</label><textarea id="axis-defaults-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>[6, 15]</code></p><p lang="en"><b>English:</b> It calculates the average of the elements in each row of array a.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="axis-defaults-explain">我能不看原文用中文解释这个概念吗？</label><select id="axis-defaults-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="axis-defaults-language">我的英语表达是否清楚？</label><select id="axis-defaults-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="numpy-index" data-lesson="numpy-index" data-week="2" aria-labelledby="numpy-index-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 07 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="numpy-index-title" tabindex="-1">07. 二维切片、mask、argsort、广播与组合</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_01_Numpy.pdf · pp.16–24,26–43</p>
+<h3>1. 中文通俗解释</h3><p>a[行, 列] 分别指定两个维度。a[:,1] 取全部行的第 2 列；a[0:2,1:3] 的两段切片都不含 stop。多个整数数组索引通常成对取位置，不自动形成完整矩形。</p><p>布尔 mask 先比较每个元素，再用 True 的位置选数据。对数组组合条件用 (a &gt; 2) &amp; (a &lt; 6)，不能用标量 and 代替；括号要写完整。</p><p>argsort 返回排序后的索引，而不是排序后的值。向量化让数组整体执行逐元素运算；普通列表 [1,2] * 2 是重复，np.array([1,2]) * 2 是数值乘 2。</p><p>concatenate 沿已有轴连接；stack 增加新轴。split 可按份数或切点拆分；等分要求长度可整除，array_split 可以分成不同长度。广播从末尾对齐维度，对应长度必须相同或有一个为 1。</p><p>随机 seed 用于重现同一随机过程，不是让每次生成的数都相同。a*b 通常逐元素乘；矩阵乘法使用 a@b。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A Boolean mask selects elements whose condition is true. argsort returns indices. Broadcasting allows compatible shapes to participate in array operations.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import numpy as np
+a = np.array([[1, 2, 3], [4, 5, 6]])
+print(a[:, 1].tolist())
+print(a[(a &gt; 2) &amp; (a &lt; 6)].tolist())
+b = np.array([30, 10, 20])
+print(np.argsort(b).tolist())
+print((a + np.array([10, 20, 30])).tolist())
+print(np.stack([b, b]).shape)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[2, 5]
+[3, 4, 5]
+[1, 2, 0]
+[[11, 22, 33], [14, 25, 36]]
+(2, 3)</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>列索引 1 取 2、5。</li><li>mask 中只有数值 3、4、5 满足两个条件。</li><li>最小值 10 原在位置 1，其次 20 在位置 2，最后 30 在位置 0。</li><li>长度为 3 的数组与每行对应相加；stack 把两个一维数组放到一个新维度。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>以为 argsort 返回 [10,20,30]；以为所有同元素数形状都能广播。</li><li>混淆 concatenate 与 stack；把列表重复当成向量乘法。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>读取 mask 和 fancy indexing；判断广播是否合法；解释 stack 与 concatenate。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="numpy-index">
+<fieldset><legend>检查 1 · 判断题</legend><p>np.argsort 返回排序后的元素值。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import numpy as np
+print((np.array([1, 2]) * 2).tolist())</code></pre><label for="numpy-index-output">写出输出（可使用英文；忽略空格差异）</label><input id="numpy-index-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="numpy-index-english">解释 Boolean mask。</label><textarea id="numpy-index-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>[2, 4]</code></p><p lang="en"><b>English:</b> A Boolean mask selects the elements for which a condition is true.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="numpy-index-explain">我能不看原文用中文解释这个概念吗？</label><select id="numpy-index-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="numpy-index-language">我的英语表达是否清楚？</label><select id="numpy-index-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="matplotlib" data-lesson="matplotlib" data-week="2" aria-labelledby="matplotlib-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 08 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="matplotlib-title" tabindex="-1">08. 图表怎么读：x/y 配对、legend 与 Figure/Axes</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_02_Matplot.pdf · pp.8–17</p>
+<h3>1. 中文通俗解释</h3><p>plt.plot(x,y) 把相同位置的 x、y 配成点，然后按输入顺序连接；x 不会自动排序。x=[0,2]、y=[4,2] 对应点 (0,4)、(2,2)。</p><p>label 为线提供名称，plt.legend() 显示图例。正确拼写是 legend，不是 legent；图例名称与坐标轴标题是不同内容。</p><p>Figure 是整张画布，Axes 是一个绘图区域，Axis 才是坐标轴。fig, axes = plt.subplots(1,2) 创建一张画布上的两个绘图区域。</p><p>bar 比较类别，hist 按数值区间统计频数，scatter 看两个变量的配对关系，stackplot 显示堆积构成变化，pie 显示整体占比。直方图的 bins 是分组边界或组数，不是条形图的类别名字。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">plot pairs each x value with the y value at the same position. legend displays the labels of plotted lines.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+x = [0, 2]
+y = [4, 2]
+ax.plot(x, y, label=&quot;score&quot;)
+ax.set_xlabel(&quot;x&quot;)
+ax.set_ylabel(&quot;y&quot;)
+ax.legend()
+print(list(zip(x, y)))
+print(ax.get_legend().get_texts()[0].get_text())
+plt.close(fig)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[(0, 4), (2, 2)]
+score</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>同位置元素配对得到两个点。</li><li>线条被赋予名称 score；legend 收集该名称。</li><li>关闭本例画布释放资源；实际显示图像可在对应环境使用 plt.show()。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 x[0] 与 y[1] 配对；写 plt.show 却不加括号。</li><li>把 histogram 当成每个数据值一条柱；把 legend 当成标题。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>读出图上点坐标；解释 legend；为类别比较、分布、关系选图。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="matplotlib">
+<fieldset><legend>检查 1 · 判断题</legend><p>plt.legend() 用于给 x 轴设置标题。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>x = [0, 2]
+y = [4, 2]
+print(list(zip(x, y)))</code></pre><label for="matplotlib-output">写出输出（可使用英文；忽略空格差异）</label><input id="matplotlib-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="matplotlib-english">解释 plt.legend()。</label><textarea id="matplotlib-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>[(0, 4), (2, 2)]</code></p><p lang="en"><b>English:</b> plt.legend() displays a legend with the labels of the plotted lines.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="matplotlib-explain">我能不看原文用中文解释这个概念吗？</label><select id="matplotlib-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="matplotlib-language">我的英语表达是否清楚？</label><select id="matplotlib-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="scipy" data-lesson="scipy" data-week="2" aria-labelledby="scipy-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 09 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="scipy-title" tabindex="-1">09. SciPy 精简复习：积分、返回值与科学计算任务</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_03_SciPy.pdf · pp.3–23</p>
+<h3>1. 中文通俗解释</h3><p>NumPy 提供数组和基础数值运算，SciPy 提供基于数组的科学计算算法。这不是二选一，常常一起使用。</p><p>lambda x: x**2 创建一个接收 x、返回平方的简短函数。quad(f,a,b) 计算一元函数在区间上的数值积分，返回 (积分近似值, 绝对误差估计)。误差估计不是第二个积分结果。</p><p>dblquad 处理二重积分；fft 把信号表示到频率域，ifft 作逆变换；linalg 处理线性代数；optimize 求最小值或根；interpolate 估计已知点之间的值；curve_fit 拟合模型参数。</p><p>对话里曾按复习优先级缩短 SciPy，并不表示官方已经确认本章题量少。这里保留关键用途和返回值，具体考试权重仍以官方材料为准。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">SciPy provides algorithms for scientific computing. scipy.integrate is used to calculate integrals. quad returns an integral estimate and an error estimate.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>from scipy.integrate import quad
+f = lambda x: x ** 2
+value, error = quad(f, 0, 1)
+print(round(value, 6))
+print(error &gt;= 0)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>0.333333
+True</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>定义 x²；将函数本身交给 quad，而不是先执行一个没有参数的 f()。</li><li>积分约为 1/3；用两个名字接收结果与误差估计。</li><li>round 只影响显示精度。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 quad 的返回值当成一个数；把积分结果与误差反过来。</li><li>混淆插值与拟合；把 SciPy 的框架能力误认为全部需要死记。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>为积分、优化、频率分析选择子包；读取 quad 的返回值。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="scipy">
+<fieldset><legend>检查 1 · 判断题</legend><p>quad 返回的第二项通常是绝对误差估计。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>f = lambda x: x ** 2
+print(f(2))</code></pre><label for="scipy-output">写出输出（可使用英文；忽略空格差异）</label><input id="scipy-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="scipy-english">解释 scipy.integrate 的用途。</label><textarea id="scipy-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>4</code></p><p lang="en"><b>English:</b> It is used to calculate integrals.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="scipy-explain">我能不看原文用中文解释这个概念吗？</label><select id="scipy-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="scipy-language">我的英语表达是否清楚？</label><select id="scipy-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="pandas-index" data-lesson="pandas-index" data-week="2" aria-labelledby="pandas-index-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 10 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="pandas-index-title" tabindex="-1">10. DataFrame 为什么竖着显示？loc 与 iloc 怎样区分？</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_04_Pandas.pdf · pp.12–25</p>
+<h3>1. 中文通俗解释</h3><p>pd.DataFrame({&quot;age&quot;:[20,21], &quot;score&quot;:[80,90]}) 中，每个字典 key 是列名，列表沿这一列向下填充。第一行是 age=20、score=80；第二行是 21、90。</p><p>Series 是带标签的一维对象。df[&quot;age&quot;] 取一列，通常返回 Series；df[[&quot;age&quot;]] 仍返回二维 DataFrame。行标签不一定是位置。</p><p>loc 按标签，iloc 按从 0 开始的位置。对本例有序唯一行标签，df.loc[10:20] 包含终点标签 20；df.iloc[0:1] 只包含位置 0。整数标签也仍然是标签。</p><p>切片端点规则要看正在用的是哪种索引工具，不能看到中括号就一概而论。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A DataFrame is a labelled table. loc selects by labels, while iloc selects by integer positions.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import pandas as pd
+df = pd.DataFrame({&quot;age&quot;: [20, 21], &quot;score&quot;: [80, 90]},
+                  index=[10, 20])
+print(df.loc[20, &quot;age&quot;])
+print(df.iloc[0, 1])
+print(df.loc[10:20].shape)
+print(df.iloc[0:1].shape)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>21
+80
+(2, 2)
+(1, 2)</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>标签 20 对应第二行，因此 age 为 21。</li><li>位置 0、1 指第一行第二列，因此是 80。</li><li>loc 的标签切片包含两个端点；iloc 的 stop 不包含，因此只有一行。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>df.loc[0] 在本例不存在；把 df.iloc[20] 当成标签 20。</li><li>把字典中一个列表误当成一整行；用含糊的 series[整数] 代替明确 loc/iloc。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>根据构造代码画表格；指出 Series/DataFrame；比较标签切片与位置切片。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="pandas-index">
+<fieldset><legend>检查 1 · 判断题</legend><p>df.iloc 使用行标签，而不是位置。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import pandas as pd
+df = pd.DataFrame({&quot;age&quot;: [20, 21]}, index=[10, 20])
+print(df.loc[20, &quot;age&quot;])</code></pre><label for="pandas-index-output">写出输出（可使用英文；忽略空格差异）</label><input id="pandas-index-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="pandas-index-english">解释 loc 与 iloc。</label><textarea id="pandas-index-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>21</code></p><p lang="en"><b>English:</b> loc selects by labels, while iloc selects by integer positions.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="pandas-index-explain">我能不看原文用中文解释这个概念吗？</label><select id="pandas-index-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="pandas-index-language">我的英语表达是否清楚？</label><select id="pandas-index-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="pandas-analysis" data-lesson="pandas-analysis" data-week="2" aria-labelledby="pandas-analysis-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 11 · WEEK 2 · 建议 10–15 分钟，含手算与检查</p><h2 id="pandas-analysis-title" tabindex="-1">11. 筛选、缺失值、describe、mode 与分组统计</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week02_04_Pandas.pdf · pp.13–15,26–36；缺失值与 groupby 语法为教学补充</p>
+<h3>1. 中文通俗解释</h3><p>df[df[&quot;score&quot;] &gt;= 80] 先生成每行的真假结果，再保留 True 的行。多个条件用 &amp; 或 |，每个比较加括号。</p><p>mean 是平均数，median 是中位数，mode 是众数；mode 可能不止一个结果。value_counts 统计每个不同值出现的次数。describe 对数值列给出 count、mean、std、min、四分位数、max。</p><p>df.info() 打印结构信息，返回 None；df.describe() 返回统计表。缺失值可用 isna 检查，dropna 删除相应行/列，fillna 填补；采用哪种处理要有理由。</p><p>课件按 species 筛选 Iris 再比较特征。groupby 是把这一思路写紧凑的补充语法：先按类别分组，再在每组内部计算。不能把不同组的行简单混在一起比较。</p><p>drop 默认通常返回新表。增加列要确保长度或索引对齐；CSV 文件路径必须指向真实文件。这里的小表可以独立运行，不需要额外资料。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Filtering keeps rows that satisfy a condition. value_counts counts distinct values. Grouping calculates summaries separately for each group.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import pandas as pd
+df = pd.DataFrame({&quot;group&quot;: [&quot;A&quot;, &quot;A&quot;, &quot;B&quot;],
+                   &quot;score&quot;: [80, 90, 60]})
+print(df.loc[df[&quot;score&quot;] &gt;= 80, &quot;score&quot;].tolist())
+print(df.groupby(&quot;group&quot;)[&quot;score&quot;].mean().to_dict())
+print(df[&quot;group&quot;].value_counts().to_dict())</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[80, 90]
+{&#x27;A&#x27;: 85.0, &#x27;B&#x27;: 60.0}
+{&#x27;A&#x27;: 2, &#x27;B&#x27;: 1}</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>分数条件给出 True、True、False，只保留前两行。</li><li>A 组平均 (80+90)/2=85，B 组只有 60。</li><li>value_counts 统计 A 两次、B 一次，而不是求分数均值。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 count 当成求和；把 mode 当成 median；print(df.info()) 会额外显示 None。</li><li>把缺失数据一律填 0；把 sample std 的默认 ddof 差异忽略：Pandas std 常默认 1，NumPy std 默认 0。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>完成筛选表达式；解释统计函数；按组计算均值并用英语描述。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="pandas-analysis">
+<fieldset><legend>检查 1 · 判断题</legend><p>value_counts() 计算每个类别出现的次数。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import pandas as pd
+s = pd.Series([80, 90, 60])
+print(s[s &gt;= 80].tolist())</code></pre><label for="pandas-analysis-output">写出输出（可使用英文；忽略空格差异）</label><input id="pandas-analysis-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="pandas-analysis-english">解释按组计算平均分。</label><textarea id="pandas-analysis-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>[80, 90]</code></p><p lang="en"><b>English:</b> It calculates the mean score separately for each group.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="pandas-analysis-explain">我能不看原文用中文解释这个概念吗？</label><select id="pandas-analysis-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="pandas-analysis-language">我的英语表达是否清楚？</label><select id="pandas-analysis-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week2.html#dialogue-additions">返回 Week 2 对照复习 →</a></p></article><article class="lesson" id="ai-problem" data-lesson="ai-problem" data-week="3" aria-labelledby="ai-problem-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 12 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="ai-problem-title" tabindex="-1">12. AI 四种观点、风险与搜索问题的组成</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_01_Intro_to_AI.pdf · pp.3–44</p>
+<h3>1. 中文通俗解释</h3><p>thinking/acting 表示关注内部思考还是外在行动，humanly/rationally 表示像人还是根据目标和已有信息作合理选择。理性不等于知道未来所有信息。</p><p>symbolic AI 使用明确符号和规则；sub-symbolic 方法可学习数值表示。语音转文字不等于理解内容。对抗样本是故意修改输入使模型出错；偏见是系统性不利差异；隐私涉及敏感信息。</p><p>搜索问题需要 initial state、actions、transition/result、goal test、step cost。path cost 是沿路代价相加。state 是当前情况，node 还可包含路径、父节点、深度和累计代价。</p><p>农夫问题的一条合法过程：羊过去→农夫回来→狼过去→羊回来→白菜过去→农夫回来→羊过去。限制决定动作是否有效，不能只追求每一步都把更多物品留在对岸。</p><p>搜索空间可能指数增长，例如粗略示意 361^200 是乘方，不是 361×200。uninformed search 仍知道动作、代价和目标检查，只是没有剩余代价的启发式估计。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A search problem describes an initial state, possible actions, a goal test, and costs. A solution is a sequence of actions that reaches the goal.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>path = [&quot;S&quot;, &quot;A&quot;, &quot;G&quot;]
+step_costs = [1, 10]
+print(&quot; -&gt; &quot;.join(path))
+print(sum(step_costs))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>S -&gt; A -&gt; G
+11</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>路径包含两个动作 S→A 和 A→G。</li><li>累计代价是 1+10=11，不是节点数量 3。</li><li>找到一个解与找到代价最低的解是不同要求。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把相同状态的不同路径都当成同一搜索树节点。</li><li>把“像人”当成“必然正确”；把 uninformed 解释成什么都不知道。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>给场景归入 AI 四观点；将地图或谜题写成搜索问题；区分 complete 与 optimal。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ai-problem">
+<fieldset><legend>检查 1 · 判断题</legend><p>找到一个解，就能证明它一定是最优解。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>print(sum([1, 10]))</code></pre><label for="ai-problem-output">写出输出（可使用英文；忽略空格差异）</label><input id="ai-problem-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ai-problem-english">解释 path cost。</label><textarea id="ai-problem-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>11</code></p><p lang="en"><b>English:</b> The path cost is the sum of the step costs along a path.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ai-problem-explain">我能不看原文用中文解释这个概念吗？</label><select id="ai-problem-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ai-problem-language">我的英语表达是否清楚？</label><select id="ai-problem-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="bfs-dfs" data-lesson="bfs-dfs" data-week="3" aria-labelledby="bfs-dfs-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 13 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="bfs-dfs-title" tabindex="-1">13. BFS、DFS、DLS、IDS 和双向搜索</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_01_Intro_to_AI.pdf · pp.45–61</p>
+<h3>1. 中文通俗解释</h3><p>BFS 使用 FIFO queue，一层层展开；DFS 使用 LIFO stack 或递归，先走深分支再回退。必须先约定左右孩子顺序，才能比较访问序列。</p><p>BFS 找最浅解，只有每步代价相同等条件下才保证代价最优。DFS 在无限深度或未处理循环时可能不终止；有限图正确处理重复状态后可访问全部可达状态。</p><p>DLS 是设深度上限的 DFS，根深度为 0。IDS 依次用上限 0、1、2…重新运行 DLS，并不是把 BFS 的队列继续推进。双向搜索需要明确目标和可生成的前驱。</p><p>常见树搜索规模：BFS 时间/空间 O(b^d)；DFS 时间 O(b^m)、空间 O(bm)；IDS 时间 O(b^d)、空间 O(bd)。图搜索若保存 visited，还要计入该存储。b 是分支数，d 是最浅解深度。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">BFS explores level by level using a queue. DFS follows one branch deeply before trying another branch.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>from collections import deque
+graph = {&quot;S&quot;: [&quot;A&quot;, &quot;B&quot;], &quot;A&quot;: [&quot;D&quot;, &quot;E&quot;],
+         &quot;B&quot;: [&quot;F&quot;, &quot;G&quot;], &quot;D&quot;: [], &quot;E&quot;: [], &quot;F&quot;: [], &quot;G&quot;: []}
+queue = deque([&quot;S&quot;])
+seen = {&quot;S&quot;}
+order = []
+while queue:
+    node = queue.popleft()
+    order.append(node)
+    for child in graph[node]:
+        if child not in seen:
+            seen.add(child)
+            queue.append(child)
+print(&quot; &quot;.join(order))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>S A B D E F G</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>取出 S，把 A、B 加入队列。</li><li>取出 A，再加入 D、E，此时队列为 B、D、E。</li><li>先前已经入队的 B 先处理，然后才是 D、E。左优先 DFS 的完整顺序则是 S A D E B F G。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>认为 BFS 总找最便宜路线；把 queue 与 stack 混用。</li><li>DLS 到上限不代表整个问题无解；IDS 每轮从根重新找。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>给树写 BFS/DFS 顺序；比较完整性、最优性、时间、空间及其条件。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="bfs-dfs">
+<fieldset><legend>检查 1 · 判断题</legend><p>边代价不同的情况下，BFS 仍一定找总代价最低的路线。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>from collections import deque
+q = deque([&quot;B&quot;, &quot;D&quot;, &quot;E&quot;])
+print(q.popleft())</code></pre><label for="bfs-dfs-output">写出输出（可使用英文；忽略空格差异）</label><input id="bfs-dfs-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="bfs-dfs-english">比较 BFS 与 DFS。</label><textarea id="bfs-dfs-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>B</code></p><p lang="en"><b>English:</b> BFS explores level by level, while DFS explores one branch deeply first.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="bfs-dfs-explain">我能不看原文用中文解释这个概念吗？</label><select id="bfs-dfs-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="bfs-dfs-language">我的英语表达是否清楚？</label><select id="bfs-dfs-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="ucs" data-lesson="ucs" data-week="3" aria-labelledby="ucs-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 14 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="ucs-title" tabindex="-1">14. UCS：为什么看到目标 G=11 还不能停止？</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_01_Intro_to_AI.pdf · pp.51–52,72–74</p>
+<h3>1. 中文通俗解释</h3><p>课件图：S→A=1，A→G=10；S→B=5，B→G=5；S→C=15，C→G=5。三条路分别花费 11、10、20。</p><p>UCS 比较从起点到当前节点的累计代价 g，不是最后一段边的代价，也不是步数。处理优先级最高指当前 g 数值最小。</p><p>展开 A 后先生成 G=11，但候选中仍有 B=5。必须先处理 B，再将更便宜的 G 更新为 10。通常在目标以最低代价候选被取出时停止。</p><p>常见完整性保证要求有限分支且单步代价有正下界；非负代价与正确重复状态处理支持最优性。无限空间不能只写“所有边正就无条件终止”。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">UCS expands the node with the lowest accumulated path cost. It does not stop merely because a goal is first generated.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>frontier = {&quot;B&quot;: 5, &quot;G&quot;: 11, &quot;C&quot;: 15}
+node = min(frontier, key=frontier.get)
+print(node)
+new_goal_cost = frontier[&quot;B&quot;] + 5
+frontier[&quot;G&quot;] = min(frontier[&quot;G&quot;], new_goal_cost)
+del frontier[&quot;B&quot;]
+print(min(frontier, key=frontier.get), frontier[&quot;G&quot;])</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>B
+G 10</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>候选 B=5、G=11、C=15，先选 B。</li><li>经过 B 到 G 的累计代价是 5+5=10，小于原来的 11。</li><li>下一步取出 G=10，返回 S→B→G。此代码只演示候选更新，不是完整引擎。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>一生成目标就结束；比较单条边而不是累计 g。</li><li>到同状态后永远拒绝新路线，导致丢失更便宜路径。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>逐步写 frontier；解释为什么 G=11 不是最终答案；区分 generated 与 expanded/popped。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ucs">
+<fieldset><legend>检查 1 · 判断题</legend><p>UCS 第一次生成目标节点时就必须停止。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>costs = {&quot;B&quot;: 5, &quot;G&quot;: 11, &quot;C&quot;: 15}
+print(min(costs, key=costs.get))</code></pre><label for="ucs-output">写出输出（可使用英文；忽略空格差异）</label><input id="ucs-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ucs-english">解释 UCS 选择规则。</label><textarea id="ucs-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>B</code></p><p lang="en"><b>English:</b> UCS chooses the node with the lowest path cost so far.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ucs-explain">我能不看原文用中文解释这个概念吗？</label><select id="ucs-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ucs-language">我的英语表达是否清楚？</label><select id="ucs-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="astar" data-lesson="astar" data-week="3" aria-labelledby="astar-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 15 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="astar-title" tabindex="-1">15. Greedy 与 A*：g、h、f，以及八数码估计</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_01_Intro_to_AI.pdf · pp.62–71；小图 h 值为教学补充</p>
+<h3>1. 中文通俗解释</h3><p>g 是已付代价，h 是估计剩余代价，A* 的 f=g+h 是估计总成本。Greedy 只比较 h，UCS 只比较 g，A* 比较 g+h。h 恒为 0 时，A* 的选择规则退化为 UCS。</p><p>沿用 UCS 小图，给 A/B/C 的 h 分别为 1/4/5。Greedy 先 A 再 G，得到 11；A* 展开 A 后仍需与全部 frontier 比较，B 的 f=9 比 G 的 11 小，最终可得到 10。</p><p>可采纳 admissible 表示不高估真实最低剩余代价；consistent 表示 h(n)≤c(n,n′)+h(n′)，常令 h(goal)=0。图搜索中若使用不一致启发式，需要允许更便宜路径重新打开状态等正确处理。</p><p>八数码：错位块数量与 Manhattan 距离都排除空格。Manhattan 是每个数字到目标的行差绝对值加列差绝对值，再求总和。它通常比错位计数信息更多。</p><p>课件 pathmax 使用 max(parent_f, child_g+child_h) 令局部评分不下降，但不能把任意错误估计变成可采纳估计。罗马尼亚地图中贪心路线 450，A* 最优路线 418，具体并列展开顺序可不同。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A* chooses the node with the lowest g(n) + h(n), combining the cost so far with the estimated remaining cost.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>g = {&quot;X&quot;: 8, &quot;Y&quot;: 2}
+h = {&quot;X&quot;: 1, &quot;Y&quot;: 4}
+print(min(g, key=lambda n: h[n]))
+print(min(g, key=lambda n: g[n] + h[n]))
+print(max(7, 4 + 2))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>X
+Y
+7</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>Greedy 比较 h：X=1、Y=4，所以选 X。</li><li>A* 比较 f：X=9、Y=6，所以选 Y。</li><li>pathmax 将子节点评分从 6 提升到父节点的 7。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 h 当成已知精确距离；把 A* 理解成必须沿当前分支走到底。</li><li>无条件说 A* 一定最优；计算八数码时把空格重复计入。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>计算候选 g/h/f；比较 UCS/Greedy/A*；检查是否高估；手算 Manhattan。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="astar">
+<fieldset><legend>检查 1 · 判断题</legend><p>如果所有 h 值都是 0，A* 的选择规则就与 UCS 一致。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>g = {&quot;A&quot;: 4, &quot;B&quot;: 2}
+h = {&quot;A&quot;: 1, &quot;B&quot;: 5}
+print(min(g, key=lambda n: g[n] + h[n]))</code></pre><label for="astar-output">写出输出（可使用英文；忽略空格差异）</label><input id="astar-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="astar-english">解释 A*。</label><textarea id="astar-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>A</code></p><p lang="en"><b>English:</b> A* combines the cost so far with an estimate of the remaining cost.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="astar-explain">我能不看原文用中文解释这个概念吗？</label><select id="astar-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="astar-language">我的英语表达是否清楚？</label><select id="astar-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="expert-architecture" data-lesson="expert-architecture" data-week="3" aria-labelledby="expert-architecture-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 16 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="expert-architecture-title" tabindex="-1">16. 专家系统结构、知识获取与 MYCIN</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_02_Expert_System.pdf · pp.3–12,16–31</p>
+<h3>1. 中文通俗解释</h3><p>专家系统使用某个领域的知识和规则提供建议。knowledge base 存事实和规则；inference engine 应用规则；user interface 收集回答、显示结果。explanation system 说明为什么问和怎样得出结论。</p><p>知识获取 acquisition 收集专家经验；知识工程 engineering 把知识组织成系统可用的表示。原型要经过专家测试和反馈，因为专家可能难以说清全部隐性知识。</p><p>浅层系统主要用表面经验规则；深层系统还表示结构与因果机制。deep 在这里不等于深度神经网络。课件第19页把深层系统与 A* 最优性直接等同，不能当成一般定义。</p><p>MYCIN 是早期医疗规则系统，约600条规则，并使用 certainty factors。确定性因子不是可直接当作标准概率的百分比，也不能与完整贝叶斯推断混为一谈。</p><p>优势：保存、复制和提供领域知识；局限：规则错误会传递、常识有限、知识获取和维护昂贵。相同输入稳定输出不等于输出正确，传统系统通常需要人工更新。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">An expert system uses domain knowledge and rules. The knowledge base stores knowledge, and the inference engine uses it to draw conclusions.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>power_on = True
+paper_available = False
+if power_on and not paper_available:
+    advice = &quot;Add paper.&quot;
+else:
+    advice = &quot;Check another cause.&quot;
+print(advice)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>Add paper.</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>用户情况构成当前事实：开机、缺纸。</li><li>规则条件同时成立，产生加纸建议。</li><li>界面负责展示建议，解释部分可列出匹配条件。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>认为系统懂所有领域；把知识库与推理引擎职责交换。</li><li>把规则分数当成真实概率；把 deep expert system 等同 A* 或 deep learning。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>定义专家系统；标架构组件；比较优缺点、浅层与深层；解释 MYCIN 的规则表示。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="expert-architecture">
+<fieldset><legend>检查 1 · 判断题</legend><p>知识库负责保存事实和规则。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>facts = {&quot;raining&quot;, &quot;windy&quot;}
+print(&quot;raining&quot; in facts)</code></pre><label for="expert-architecture-output">写出输出（可使用英文；忽略空格差异）</label><input id="expert-architecture-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="expert-architecture-english">解释 inference engine。</label><textarea id="expert-architecture-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>True</code></p><p lang="en"><b>English:</b> The inference engine applies rules to facts to draw conclusions.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="expert-architecture-explain">我能不看原文用中文解释这个概念吗？</label><select id="expert-architecture-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="expert-architecture-language">我的英语表达是否清楚？</label><select id="expert-architecture-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="chaining" data-lesson="chaining" data-week="3" aria-labelledby="chaining-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 17 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="chaining-title" tabindex="-1">17. 正向、反向与“没有证明”之间的区别</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_02_Expert_System.pdf · pp.13–15,49–52</p>
+<h3>1. 中文通俗解释</h3><p>正向从已知事实出发，匹配规则产生新事实，因此 data-driven。反向从要验证的目标出发，寻找能支持它的规则，再证明子目标，因此 goal-driven。</p><p>教学规则：下雨→地面湿，地面湿→地面滑。正向从 raining 推到 wet、slippery；反向先问 slippery，再依次检查 wet、raining。</p><p>反向推理不意味着把“下雨→地面湿”改成“地面湿→一定下雨”。它验证目标的支持条件，不自动倒转逻辑蕴含。</p><p>回溯在后续前提失败时退回之前的候选匹配，换另一种组合。无法证明目标可能源于知识不足，不等于现实中目标一定为假。下面教学引擎仅支持这组无环、单规则条件。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Forward chaining derives conclusions from facts. Backward chaining starts with a goal and tries to prove the conditions that support it.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>known = {&quot;raining&quot;}
+requirements = {&quot;slippery&quot;: [&quot;wet&quot;], &quot;wet&quot;: [&quot;raining&quot;]}
+def prove(target):
+    if target in known:
+        return True
+    if target not in requirements:
+        return False
+    return all(prove(item) for item in requirements[target])
+print(prove(&quot;slippery&quot;))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>True</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>证明 slippery 需要 wet；证明 wet 需要 raining。</li><li>raining 在基础事实中，返回 True。</li><li>成功逐层传回，目标可以被现有规则证明。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 backward chaining 当成因果箭头任意反转。</li><li>把第一次候选失败当成所有候选失败；把 unknown 当成现实世界中的 false。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>指出数据驱动/目标驱动；给事实追踪推理链；说明何时 backtrack。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="chaining">
+<fieldset><legend>检查 1 · 判断题</legend><p>无法用现有知识证明一个目标，就证明了该目标现实中一定为假。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>facts = {&quot;raining&quot;}
+if &quot;raining&quot; in facts:
+    facts.add(&quot;wet&quot;)
+print(&quot;wet&quot; in facts)</code></pre><label for="chaining-output">写出输出（可使用英文；忽略空格差异）</label><input id="chaining-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="chaining-english">解释 forward chaining。</label><textarea id="chaining-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>True</code></p><p lang="en"><b>English:</b> Forward chaining starts with known facts and applies rules to derive new facts.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="chaining-explain">我能不看原文用中文解释这个概念吗？</label><select id="chaining-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="chaining-language">我的英语表达是否清楚？</label><select id="chaining-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="pyke-family" data-lesson="pyke-family" data-week="3" aria-labelledby="pyke-family-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 18 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="pyke-family-title" tabindex="-1">18. PyKE 家庭关系：文件、变量与 Fred 的侄子</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_02_Expert_System.pdf · pp.38–61</p>
+<h3>1. 中文通俗解释</h3><p>.kfb 存事实，.krb 存规则，.kqb 存问题，.py 驱动程序创建引擎、激活规则并查询。reset 清理案例运行状态，基础 universal facts 在重置中保留。</p><p>family.son_of($son,thomas,norma)：family 是知识库，son_of 是关系，参数有规定顺序。$son 是待匹配变量；$_father 表示这里不关心父亲值，不作保留绑定。这些是 PyKE 语法，不是普通 Python 变量。</p><p>正向用 foreach/assert：son_of(david,bruce) 可生成 father_son(bruce,david,())。反向用 use/when：从目标寻找支持的子目标。普通 Python 的 assert 是条件检查，与此处加入事实不同。</p><p>课件事实：Tim、Fred、Bruce 都是 Thomas 的儿子，David 是 Bruce 的儿子。查询 Fred 的侄子：先证明 brothers(fred,候选父亲)，再找候选父亲的儿子。Tim 路线无可用儿子事实，回溯到 Bruce，找到 David。</p><p>兄弟规则要排除同一人；不同规则中的局部 $father 不要当成同一个全局变量。空前缀 () 表示直接父子；单元素 Python 元组要写 (&quot;great&quot;,)。</p><p>驱动顺序：engine创建→reset→activate→prove_goal→遍历答案。__file__ 通常在 .py 文件中存在，Notebook 单元格不应假定有它。values[&quot;bring&quot;] 不带查询变量中的 $。具体 PyKE 运行仍需要课程配套环境和知识文件。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A pattern variable matches a value. Backtracking tries another match when a later condition fails. David is Fred’s nephew because David’s father is Fred’s brother.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>sons = [(&quot;tim&quot;, &quot;thomas&quot;), (&quot;fred&quot;, &quot;thomas&quot;),
+        (&quot;bruce&quot;, &quot;thomas&quot;), (&quot;david&quot;, &quot;bruce&quot;)]
+father_of = dict(sons)
+brothers = [son for son, father in sons
+            if father == father_of[&quot;fred&quot;] and son != &quot;fred&quot;]
+nephews = [son for son, father in sons if father in brothers]
+print(brothers)
+print(nephews)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[&#x27;tim&#x27;, &#x27;bruce&#x27;]
+[&#x27;david&#x27;]</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>建立儿子→父亲的查找表。</li><li>找到父亲都是 Thomas 且不是 Fred 本人的 Tim、Bruce。</li><li>检查这些人的儿子，当前只有 David 可匹配。普通 Python 代码展示关系结果，PyKE 会按规则执行证明。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>son_of 的儿子/父亲顺序写反；让同一人匹配自己的兄弟。</li><li>误以为没有找到 Tim 的儿子就证明他现实中无子；误以为 goal.compile 已经执行查询。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>识别 kfb/krb/kqb；绑定变量；追踪 Fred→兄弟→儿子的子目标；读驱动代码。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="pyke-family">
+<fieldset><legend>检查 1 · 判断题</legend><p>PyKE 的 $son 可以直接作为普通 Python 赋值变量名。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>son = &quot;david&quot;
+father = &quot;bruce&quot;
+print((father, son, ()))</code></pre><label for="pyke-family-output">写出输出（可使用英文；忽略空格差异）</label><input id="pyke-family-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="pyke-family-english">解释 Fred 与 David 的关系。</label><textarea id="pyke-family-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>(&#x27;bruce&#x27;, &#x27;david&#x27;, ())</code></p><p lang="en"><b>English:</b> Fred is David’s uncle because Fred is the brother of David’s father, Bruce.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="pyke-family-explain">我能不看原文用中文解释这个概念吗？</label><select id="pyke-family-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="pyke-family-language">我的英语表达是否清楚？</label><select id="pyke-family-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="pyke-weather" data-lesson="pyke-weather" data-week="3" aria-labelledby="pyke-weather-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 19 · WEEK 3 · 建议 10–15 分钟，含手算与检查</p><h2 id="pyke-weather-title" tabindex="-1">19. 天气两版规则与多个答案：以课件给定规则为准</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week03_02_Expert_System.pdf · pp.62–69</p>
+<h3>1. 中文通俗解释</h3><p>第66页固定事实版：下雨且刮风→raincoat；下雨且不刮风→umbrella；不下雨且不刮风→nothing。“不下雨但刮风”没有相应结论，不能擅自补出 nothing。</p><p>第69页提问版：不下雨→no_rain_gear；下雨且不刮风→raincoat；下雨且刮风→umbrella。两版把雨衣/雨伞条件写得不同，解释第64与67页输出时必须分别使用对应规则。</p><p>提问版还独立匹配选项规则：1→marshmellos，2或3→kite，4→tissues。这是语法演示中的玩笑规则，不是现实灾害建议。</p><p>目标 what_to_bring($bring) 可以有多个匹配；for values,plan in answers 会遍历多个证明结果。不能自动把独立规则理解成只能执行一个分支的 if/elif。问题库用 yn 定义 yes/no，用 select_1 定义单选。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">The result depends on the rules in the active rule base. Several successful rules can produce several answers.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>raining, windy, disaster = True, True, 1
+answers = []
+# Question-based version on page 69
+if raining and windy:
+    answers.append(&quot;umbrella&quot;)
+if disaster == 1:
+    answers.append(&quot;marshmellos&quot;)
+print(answers)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[&#x27;umbrella&#x27;, &#x27;marshmellos&#x27;]</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>使用第69页规则，下雨且刮风匹配 umbrella。</li><li>独立的选项规则也成立，再加入 marshmellos。</li><li>两个结果都能被当前规则证明；规则是否合理需另行检查。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>混合两个版本条件后背一个“唯一答案”。</li><li>看到首个结果就以为查询终止；把未覆盖输入当成显式 False 事实。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>按指定页的事实/规则预测输出；说明为什么有两个答案；找出规则覆盖缺口。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="pyke-weather">
+<fieldset><legend>检查 1 · 判断题</legend><p>两版天气系统在相同天气输入下必须得到相同建议。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>answers = []
+if True:
+    answers.append(&quot;umbrella&quot;)
+if True:
+    answers.append(&quot;extra&quot;)
+print(len(answers))</code></pre><label for="pyke-weather-output">写出输出（可使用英文；忽略空格差异）</label><input id="pyke-weather-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="pyke-weather-english">解释为什么可以有多个答案。</label><textarea id="pyke-weather-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>2</code></p><p lang="en"><b>English:</b> Several rules can support different answers to the same query.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="pyke-weather-explain">我能不看原文用中文解释这个概念吗？</label><select id="pyke-weather-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="pyke-weather-language">我的英语表达是否清楚？</label><select id="pyke-weather-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week3.html#dialogue-additions">返回 Week 3 对照复习 →</a></p></article><article class="lesson" id="ml-data" data-lesson="ml-data" data-week="4" aria-labelledby="ml-data-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 20 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-data-title" tabindex="-1">20. ML 衔接：X/y、三类学习、划分与交叉验证</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.3–45；本模块为课件新整理，不预设已经学会</p>
+<h3>1. 中文通俗解释</h3><p>AI 包含 ML，ML 包含 deep learning。ML 从数据中学习关系；DL 使用多层神经网络，通常对数据和计算要求更高，但不是所有任务都必然更好。对比专家系统：传统规则主要由人提供，ML 的模型参数由数据拟合。</p><p>每行通常是一个 sample/instance/observation，每个输入列是 feature/predictor；X 保存输入，y 保存 target/label。监督学习有标签；无监督学习寻找无标签结构；强化学习利用行动和奖励反馈学习策略。</p><p>分类预测类别，回归预测连续值。类别恰好用数字0/1表示，也仍可能是分类。监督学习不要求所有算法都逐次迭代修正预测，这是课件的概括描述。</p><p>train 用于拟合；validation/交叉验证用于比较设置；test 留作最终评价。80/20 是常见比例，不是硬性规则；random_state 固定随机过程，stratify=y 可帮助分类切分保留类别比例。</p><p>K-fold 在开发数据内轮换 k 份，每次 k-1 份训练、一份验证，最后汇总。类别不平衡与 overfitting 是不同问题：前者是类别比例，后者是训练表现好而新数据泛化差。</p><p>先划分再拟合 scaler；测试集只能 transform，不能用测试统计量重新 fit。Pipeline 可让预处理在交叉验证的每轮训练部分内部拟合，减少泄漏。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Supervised learning learns from labelled examples. The training set fits the model, validation helps choose settings, and the test set estimates performance on unseen data.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+df = pd.DataFrame({&quot;hours&quot;: [1, 2, 3, 4, 5, 6, 7, 8],
+                  &quot;passed&quot;: [0, 0, 0, 0, 1, 1, 1, 1]})
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=0, stratify=y)
+print(X.shape, y.shape)
+print(X_train.shape, X_test.shape)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>(8, 1) (8,)
+(6, 1) (2, 1)</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>X 保留输入 hours，y 单独取 passed，避免把答案当特征。</li><li>8个样本中留2个测试，6个训练。</li><li>正确导入位置是 sklearn.model_selection；最后列位置是 -1，而不是列数量 ncols。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把类别不平衡定义为过拟合；在测试集上调参。</li><li>y=df.iloc[:,ncols] 越界；iloc 训练切片从1开始会漏首行；测试集也重新 fit scaler 造成泄漏。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>判断 classification/regression；解释 sample/feature/target；修复 split 和 scaler 代码。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-data">
+<fieldset><legend>检查 1 · 判断题</legend><p>为了评价新数据表现，应反复使用测试集选择最佳参数。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>import numpy as np
+X = np.zeros((10, 3))
+print(X.shape[1])</code></pre><label for="ml-data-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-data-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-data-english">解释测试集的作用。</label><textarea id="ml-data-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>3</code></p><p lang="en"><b>English:</b> The test set estimates how well the model performs on unseen data.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-data-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-data-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-data-language">我的英语表达是否清楚？</label><select id="ml-data-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article><article class="lesson" id="ml-regression" data-lesson="ml-regression" data-week="4" aria-labelledby="ml-regression-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 21 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-regression-title" tabindex="-1">21. 线性回归手算与 MAE/MSE/RMSE/R² 纠错</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.48–62</p>
+<h3>1. 中文通俗解释</h3><p>简单线性回归预测 y_hat=m*x+c。普通最小二乘使竖直方向残差平方和尽量小；不是要求每个点都在线上，也不是最小化任意方向几何距离。</p><p>课件第54页数据 x=[1,2,3,4,5]、y=[3,4,2,4,5]。x均值3，y均值3.6；m=Σ((x-x̄)(y-ȳ))/Σ((x-x̄)²)=4/10=0.4；c=3.6-0.4×3=2.4。预测为[2.8,3.2,3.6,4.0,4.4]。</p><p>MAE=平均绝对误差，MSE=平均平方误差，RMSE=√MSE。第62页截图把 RMSE 写成 √MAE，是代码错误；不存在对所有目标单位都通用的“0.2–0.5即合理”阈值。</p><p>一般使用 R²=1-SSE/SST。对于第54页数据，SSE=3.6，SST=5.2，所以 R²≈0.307692；第55页写1与给定表格不符。测试集R²可以为负，表示比预测该评价集均值还差。</p><p>fit 学习参数，predict 用已学参数产生输出；sklearn 的 X 通常二维，即使只有一个特征也常用 [[1],[2],...]。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Linear regression predicts a numerical value. RMSE is the square root of MSE and has the same unit as the target.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+X = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
+y = np.array([3, 4, 2, 4, 5])
+model = LinearRegression().fit(X, y)
+pred = model.predict(X)
+print(round(float(model.coef_[0]), 1), round(float(model.intercept_), 1))
+print(round(mean_squared_error(y, pred), 2))
+print(round(r2_score(y, pred), 6))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>0.4 2.4
+0.72
+0.307692</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>fit 从五个点拟合斜率0.4、截距2.4。</li><li>残差平方和3.6，除以5得到MSE=0.72，RMSE≈0.848528。</li><li>同数据拟合评价仅用于演示计算，不能当作独立测试集泛化结果。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把 RMSE 写成 √MAE；把 R² 当成准确率；以为 R² 永远在0与1之间。</li><li>把回归关系解释成已证明因果；在训练数据上评价后宣称预测未知数据也一样好。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>手算 m/c 与预测值；根据残差算误差；修复 RMSE；解释 R²。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-regression">
+<fieldset><legend>检查 1 · 判断题</legend><p>RMSE 是 MSE 的平方根。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>errors = [1, -1]
+print(sum(e ** 2 for e in errors) / len(errors))</code></pre><label for="ml-regression-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-regression-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-regression-english">解释 RMSE。</label><textarea id="ml-regression-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>1.0</code></p><p lang="en"><b>English:</b> RMSE is the square root of the mean squared error.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-regression-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-regression-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-regression-language">我的英语表达是否清楚？</label><select id="ml-regression-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article><article class="lesson" id="ml-metrics" data-lesson="ml-metrics" data-week="4" aria-labelledby="ml-metrics-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 22 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-metrics-title" tabindex="-1">22. Logistic regression、阈值与混淆矩阵手算</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.63–75</p>
+<h3>1. 中文通俗解释</h3><p>Logistic regression 虽然名字有 regression，在这里用于分类。二分类用 sigmoid(z)=1/(1+exp(-z)) 得到0到1之间的概率，再按阈值转类别。0.5是常用阈值，不是所有题都必须用。</p><p>先确定正类是谁。若 positive=有病：TP是实际有病且预测有病；FN是有病却预测健康；FP是健康却预测有病；TN是健康且预测健康。</p><p>sklearn 在 labels=[0,1] 时 confusion_matrix 行是真实、列是预测，排列为 [[TN,FP],[FN,TP]]。课件部分示意表换了轴和类别顺序，不能只死记左上角是TP或TN。</p><p>accuracy=(TP+TN)/总数；precision=TP/(TP+FP)，看预测正类有多少是真的；recall=TP/(TP+FN)，看实际正类找回多少；F1是两者调和平均。</p><p>全预测健康时，90健康10有病的数据仍有90%准确率，但recall=0。此时没有正预测，precision分母为0，数学上未定义；库可按zero_division政策处理，不要直接说FP=0就precision=1。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Precision measures how many positive predictions are correct. Recall measures how many actual positives are found.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+y_true = [0, 0, 0, 1, 1, 1]
+y_pred = [0, 1, 0, 1, 0, 1]
+print(confusion_matrix(y_true, y_pred, labels=[0, 1]).tolist())
+print(round(precision_score(y_true, y_pred), 3))
+print(round(recall_score(y_true, y_pred), 3))
+print(round(f1_score(y_true, y_pred), 3))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>[[2, 1], [1, 2]]
+0.667
+0.667
+0.667</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>得到 TN=2、FP=1、FN=1、TP=2。</li><li>precision=2/(2+1)，recall=2/(2+1)，都为2/3。</li><li>两者相同，所以F1也为2/3；F1并非所有任务都比accuracy更好，指标取决于错误成本和目标。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>用数字1天然代表“病人”，而不核对数据编码。</li><li>混淆precision和recall的分母；把threshold当作不可改变；把F1说成算术平均。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>读矩阵并计算指标；解释不平衡数据下高accuracy为何可能误导；按阈值预测类别。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-metrics">
+<fieldset><legend>检查 1 · 判断题</legend><p>只要 accuracy 很高，就能保证少数正类被识别得很好。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>p = 0.7
+print(int(p &gt;= 0.5))</code></pre><label for="ml-metrics-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-metrics-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-metrics-english">解释 recall。</label><textarea id="ml-metrics-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>1</code></p><p lang="en"><b>English:</b> Recall measures the proportion of actual positive cases that are correctly identified.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-metrics-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-metrics-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-metrics-language">我的英语表达是否清楚？</label><select id="ml-metrics-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article><article class="lesson" id="ml-trees" data-lesson="ml-trees" data-week="4" aria-labelledby="ml-trees-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 23 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-trees-title" tabindex="-1">23. 决策树与随机森林：条件路径和投票</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.76–85</p>
+<h3>1. 中文通俗解释</h3><p>决策树像一串条件问题：根节点开始，按照feature条件走到叶节点得到预测。与专家系统手写规则对比，监督学习树的分裂通常由训练数据学习。</p><p>单棵树太深可能记住训练样本细节，从而过拟合。不是“数据大就一定过拟合”；深度、叶节点样本数和数据质量等都会影响。</p><p>随机森林训练多棵有差异的树。通常使用自助抽样，并在分裂时随机选候选特征；分类汇总投票，回归汇总平均。bagging 是这种对抽样模型进行聚合的思路。</p><p>森林通常比不受限制的单树更稳定，但不保证每个任务都更准确。第85页矩阵[[19,3],[3,0]]虽有0.76准确率，但若类1为正类，其recall为0：不能只凭准确率宣布所有类别都改善。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">A decision tree follows feature-based conditions. A random forest combines predictions from many trees to improve stability.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>from collections import Counter
+votes = [&quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;]
+prediction = Counter(votes).most_common(1)[0][0]
+print(prediction)
+cm = [[19, 3], [3, 0]]
+print((cm[0][0] + cm[1][1]) / sum(map(sum, cm)))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>yes
+0.76</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>五棵教学树中yes有3票，no有2票，得到yes。</li><li>混淆矩阵对角线之和为19，总数25，准确率0.76。</li><li>仍需检查各类别的precision/recall；一个数字不等于所有类别表现。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把树规则全部当成必须人工指定；认为森林一定不会过拟合。</li><li>把n_estimators树数量当作树深；忽略矩阵中正类TP为0。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>沿树路径得叶结论；解释bagging和投票；比较树/森林的稳定性与可解释性。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-trees">
+<fieldset><legend>检查 1 · 判断题</legend><p>随机森林保证对任何数据都比单棵决策树更准确。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>votes = [1, 0, 1, 1, 0]
+print(max(set(votes), key=votes.count))</code></pre><label for="ml-trees-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-trees-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-trees-english">解释随机森林。</label><textarea id="ml-trees-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>1</code></p><p lang="en"><b>English:</b> A random forest combines predictions from many decision trees.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-trees-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-trees-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-trees-language">我的英语表达是否清楚？</label><select id="ml-trees-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article><article class="lesson" id="ml-bayes" data-lesson="ml-bayes" data-week="4" aria-labelledby="ml-bayes-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 24 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-bayes-title" tabindex="-1">24. Naïve Bayes：先验、条件概率与归一化</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.86–98</p>
+<h3>1. 中文通俗解释</h3><p>Bayes公式：P(H|E)=P(E|H)P(H)/P(E)。P(H)是prior先验，P(E|H)是likelihood，P(H|E)是posterior后验。“已知E时H多可能”与“已知H时E多可能”不同。</p><p>课件纸牌例子：已知抽到人头牌，12张人头牌中4张K，所以P(King|Face)=1/3，而不是4/52。</p><p>Naïve Bayes 假设给定类别后各特征条件独立，因此类别score=prior×各特征条件概率乘积。比较score即可分类，需要概率时再除以所有score的和。</p><p>课件天气表：Yes有9条、No有5条。Rain/High/Weak组合的Yes score=(3/9)(3/9)(6/9)(9/14)=0.047619；No score=(2/5)(4/5)(2/5)(5/14)=0.045714。归一化Yes≈0.510204。</p><p>第90页Wind频数表与后续页条件表不一致；计算应核对原14行数据和题目提供的表。不要把P(Yes|Sunny)这种后验再当作P(Sunny|Yes)相乘。</p><p>GaussianNB 适用于类别内连续特征的高斯分布假设；MultinomialNB 常用于计数；BernoulliNB 常用于出现/未出现的0/1特征。第97–98页同数据训练评价仅展示API，需另做独立测试判断泛化。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">Naïve Bayes combines a class prior with feature likelihoods. It assumes conditional independence of features given the class.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>yes_score = (3/9) * (3/9) * (6/9) * (9/14)
+no_score = (2/5) * (4/5) * (2/5) * (5/14)
+posterior = yes_score / (yes_score + no_score)
+print(round(yes_score, 6))
+print(round(no_score, 6))
+print(round(posterior, 6))</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>0.047619
+0.045714
+0.510204</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>对每个类别分别将先验与三个条件概率相乘。</li><li>Yes分数略高，分类结果是Yes。</li><li>两分数相加作为归一化分母；约51%是当前模型计算的概率，不保证现实必定如此。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把P(H|E)与P(E|H)互换；把未归一化score当成最终概率。</li><li>把naïve定义为无条件独立；零频数可能令乘积归零，实际常用smoothing。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>手算Bayes纸牌题或天气score；解释prior/likelihood/posterior；选择NB类型。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-bayes">
+<fieldset><legend>检查 1 · 判断题</legend><p>一般来说，P(H|E) 总是等于 P(E|H)。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>yes, no = 0.06, 0.04
+print(round(yes / (yes + no), 2))</code></pre><label for="ml-bayes-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-bayes-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-bayes-english">解释 Naïve Bayes 的假设。</label><textarea id="ml-bayes-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>错 / False</p><p><b>输出：</b><code>0.6</code></p><p lang="en"><b>English:</b> It assumes that features are conditionally independent given the class.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-bayes-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-bayes-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-bayes-language">我的英语表达是否清楚？</label><select id="ml-bayes-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article><article class="lesson" id="ml-knn-svm" data-lesson="ml-knn-svm" data-week="4" aria-labelledby="ml-knn-svm-title">
+<div class="lesson-heading"><p class="eyebrow">MODULE 25 · WEEK 4 · 建议 10–15 分钟，含手算与检查</p><h2 id="ml-knn-svm-title" tabindex="-1">25. KNN、SVM 与可运行的训练流程</h2><span class="lesson-status" data-status>尚未学习</span></div>
+<p class="source-tag">核对来源：Week04_01_Intro_to_ML.pdf · pp.99–118</p>
+<h3>1. 中文通俗解释</h3><p>KNN 为新点寻找最近k个训练样本，再按多数类别分类。k太小容易受噪声影响，过大可能过度平滑。KNN也有回归版本，本课件主要讲分类。</p><p>距离受特征单位影响：年龄几十与薪资几万直接相加会让薪资主导，因此常做scaling。KNN的k是邻居数，交叉验证的k是折数，K-means的k是簇数，不能混用。</p><p>SVM 寻找将类别分开的边界并尽量扩大margin。二维时hyperplane是一条线，support vectors是影响边界的关键样本；soft-margin允许部分违反间隔。</p><p>kernel让模型隐式使用特征空间的相似度，可处理非线性边界；不是所有kernel都显式把二维数据转成三维，linear kernel也不要求升维。常见linear、polynomial、RBF、sigmoid。</p><p>下面用Pipeline将StandardScaler与KNN组合。只在训练集上fit，再在测试集上predict。替换模型可用SVC、LogisticRegression、GaussianNB、DecisionTreeClassifier或RandomForestClassifier，但不同模型预处理需求不同。</p>
+<h3>2. Simple English</h3><p class="english-frame" lang="en">KNN predicts from nearby training samples. SVM seeks a separating boundary with a wide margin. Fit preprocessing on the training data only.</p>
+<h3>3. 代码示例 / Code example</h3><p class="small">讲解例题，含完整输出；模块末尾自测需先提交回答。</p><pre data-python-example><code>from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0, stratify=y)
+model = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=3))
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print(X_train.shape, X_test.shape)
+print(pred.shape)</code></pre><div class="answer"><b>示例输出</b><pre data-example-output><code>(120, 4) (30, 4)
+(30,)</code></pre></div>
+<h3>4. 执行过程 / Execution trace</h3><ol><li>Iris有150个样本、每个4个特征；留30个作测试。</li><li>Pipeline在训练集上学习缩放参数与模型，预测时沿用相同变换。</li><li>每个测试样本得到一个类别，因此预测数组长度30。实际准确率要运行后评价，不预先承诺。</li></ol>
+<h3>5. 常见错误 / Common mistakes</h3><ul><li>把最近邻数量当作类别数；不检查特征量纲；在test上fit_transform。</li><li>认为kernel一定显式升维；认为最大间隔意味着任何真实数据都完全可分。</li></ul>
+<h3>6. 可能考法 / Practice directions</h3><ul><li>数最近k个点并投票；识别SVM margin/support vector；读fit/predict/Pipeline。</li></ul><p class="small">以下三题为自拟检查，不是官方试题或作业答案。</p>
+<form class="lesson-check" data-check-form="ml-knn-svm">
+<fieldset><legend>检查 1 · 判断题</legend><p>KNN 的预测可能随着 k 的改变而改变。</p><label><input type="radio" name="truth" value="true" required> 对 / True</label> <label><input type="radio" name="truth" value="false"> 错 / False</label></fieldset>
+<fieldset><legend>检查 2 · 输出预测</legend><pre data-python-check><code>labels = [&quot;cat&quot;, &quot;dog&quot;, &quot;cat&quot;]
+print(max(set(labels), key=labels.count))</code></pre><label for="ml-knn-svm-output">写出输出（可使用英文；忽略空格差异）</label><input id="ml-knn-svm-output" name="output" type="text" autocomplete="off" required></fieldset>
+<fieldset><legend>检查 3 · 一句英语</legend><label for="ml-knn-svm-english">解释 KNN。</label><textarea id="ml-knn-svm-english" name="english" rows="2" required></textarea></fieldset>
+<button type="submit" class="button">提交检查，再看解析</button>
+<p class="check-feedback" role="status" aria-live="polite"></p>
+<div class="check-solution" hidden><h4>参考结果与表达</h4><p><b>判断：</b>对 / True</p><p><b>输出：</b><code>cat</code></p><p lang="en"><b>English:</b> KNN predicts a class using the labels of the nearest training samples.</p><p class="small">英语句子只提供参考表达，不自动判断语义。请按自己的解释与作答情况选择下面两项。</p></div>
+</form>
+<div class="lesson-self"><label for="ml-knn-svm-explain">我能不看原文用中文解释这个概念吗？</label><select id="ml-knn-svm-explain" data-self="explain"><option value="">待验证</option><option value="yes">能解释</option><option value="no">听过但还解释不清</option></select>
+<label for="ml-knn-svm-language">我的英语表达是否清楚？</label><select id="ml-knn-svm-language" data-self="language"><option value="">待验证</option><option value="yes">能清楚表达（自评）</option><option value="no">英语还不清楚（自评）</option></select>
+<button type="button" class="button" data-read>标记已读，掌握待验证</button></div>
+<p><a href="week4.html#dialogue-additions">返回 Week 4 对照复习 →</a></p></article></div><section class="source-audit"><h2>来源与本轮补充边界</h2><p>本轮逐页提取并核对 Week 1–4 的 9 份原始 PDF；对话中已经讲过的内容整理为复习模块，ML 以原课件为依据补齐衔接。PDF 中的拼写、旧 API、规则版本差异与计算错误在相关模块明确说明。示例小数据为教学构造，不替代原始课件案例。</p><ul><li><code>Week01_01_Introduction_Programming.pdf</code></li><li><code>Week01_02_Python_Fundamentals.pdf</code></li><li><code>Week02_01_Numpy.pdf</code></li><li><code>Week02_02_Matplot.pdf</code></li><li><code>Week02_03_SciPy.pdf</code></li><li><code>Week02_04_Pandas.pdf</code></li><li><code>Week03_01_Intro_to_AI.pdf</code></li><li><code>Week03_02_Expert_System.pdf</code></li><li><code>Week04_01_Intro_to_ML.pdf</code></li></ul><p><a href="python_midterm_review.html">返回课程总览 →</a></p></section></main><script src="review.js?v=20261022"></script><script src="dialogue-review.js?v=20261022"></script></body></html>
